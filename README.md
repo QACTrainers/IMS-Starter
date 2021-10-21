@@ -75,6 +75,7 @@ We use [SemVer](http://semver.org/) for versioning.
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* ** Daniel Li - *completed IMS* - [danielli] (https://github.com/DanLi14)
 
 ## License
 
