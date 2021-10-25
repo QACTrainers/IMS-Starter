@@ -5,40 +5,33 @@ import java.util.Objects;
 public class OrderLines {
 
 	private long id;
+	private long orderId;
 	private long itemId;
 	private long quantity;
-	private long orderId;
-	
-	
-	public OrderLines(long id, long itemId, long quantity, long orderId) {
+	public OrderLines(long id, long orderId, long itemId, long quantity) {
 		super();
 		this.id = id;
-		this.itemId = itemId;
-		this.quantity = quantity;
 		this.orderId = orderId;
-	}
-	public OrderLines(long id, long itemId, long quantity) {
-		super();
-		this.id = id;
 		this.itemId = itemId;
 		this.quantity = quantity;
 	}
-	public OrderLines(long itemId, long quantity) {
+	public OrderLines(long orderId, long itemId, long quantity) {
 		super();
+		this.orderId = orderId;
 		this.itemId = itemId;
 		this.quantity = quantity;
 	}
 	public long getId() {
 		return id;
 	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public long getOrderId() {
 		return orderId;
 	}
 	public void setOrderId(long orderId) {
 		this.orderId = orderId;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	public long getItemId() {
 		return itemId;
@@ -54,7 +47,7 @@ public class OrderLines {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, itemId, quantity);
+		return Objects.hash(id, itemId, orderId, quantity);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -65,12 +58,14 @@ public class OrderLines {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderLines other = (OrderLines) obj;
-		return id == other.id && itemId == other.itemId && quantity == other.quantity;
+		return id == other.id && itemId == other.itemId && orderId == other.orderId && quantity == other.quantity;
 	}
 	@Override
 	public String toString() {
-		return "OrderLines [id=" + id + ", itemId=" + itemId + ", quantity=" + quantity + "]";
+		return "OrderLines [id=" + id + ", orderId=" + orderId + ", itemId=" + itemId + ", quantity=" + quantity + "]";
 	}
+	
+	
 	
 	
 }

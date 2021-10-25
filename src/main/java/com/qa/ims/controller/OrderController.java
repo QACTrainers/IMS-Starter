@@ -5,26 +5,32 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.dao.OrderLinesDAO;
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.persistence.domain.OrderLines;
 import com.qa.ims.utils.Utils;
 
-public class OrderController  implements CrudController<Order> {
+public class OrderController implements CrudController<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
-
+	private ItemDAO itemDAO;
 	private OrderDAO orderDAO;
 	private Utils utils;
 	private OrderLinesDAO olDAO;
-	public OrderController(OrderDAO orderDAO, Utils utils, OrderLinesDAO olDAO) {
+
+	
+	public OrderController(ItemDAO itemDAO, OrderDAO orderDAO, Utils utils, OrderLinesDAO olDAO) {
 		super();
+		this.itemDAO = itemDAO;
 		this.orderDAO = orderDAO;
 		this.utils = utils;
 		this.olDAO = olDAO;
 	}
 
+	
 
 	@Override
 	public List<Order> readAll() {
@@ -38,11 +44,10 @@ public class OrderController  implements CrudController<Order> {
 	@Override
 	public Order create() {
 		LOGGER.info("Please enter a Customer ID");
-		long customerId = utils.getLong();
-		LOGGER.info("Please enter am Item ID");
-		long itemId = utils.getLong();
-		Order order = orderDAO.create(new Order(customerId, itemId));
-		LOGGER.info("Customer created");
+		Long customerId = utils.getLong();
+
+		Order order = orderDAO.create(new Order(customerId));
+		LOGGER.info("Order created");
 		return order;
 	}
 
@@ -51,10 +56,10 @@ public class OrderController  implements CrudController<Order> {
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please Customer ID");
-		long customerId = utils.getLong();
-		
+		Long customerId = utils.getLong();
+
 		Order order = orderDAO.update(new Order(id, customerId));
-		LOGGER.info("Customer Updated");
+		LOGGER.info("Order Updated");
 		return order;
 	}
 
@@ -68,15 +73,15 @@ public class OrderController  implements CrudController<Order> {
 
 	public OrderLines addItem() {
 		LOGGER.info("Please enter the order ID");
-		long orderId = utils.getLong();
+		Long orderId = utils.getLong();
 		LOGGER.info("Please enter the Item ID");
-		long itemId = utils.getLong();
+		Long itemId = utils.getLong();
 		LOGGER.info("Please enter a Quantity");
-		long quant = utils.getLong();
+		Long quant = utils.getLong();
 		OrderLines orderL = olDAO.create(new OrderLines(orderId, itemId, quant));
 		LOGGER.info("Item has been added");
 		return orderL;
-		
+
 	}
 
 	public int removeItem() {
@@ -84,12 +89,24 @@ public class OrderController  implements CrudController<Order> {
 		LOGGER.info("WARNING: this will remove all items associated with the order");
 		Long id = utils.getLong();
 		return olDAO.delete(id);
-		
+
 	}
 
-	public void total() {
+	public Double total() {
 		LOGGER.info("Please enter the Order_id");
+		Long orderId = utils.getLong();
+		Double total = 0d;
+		List<OrderLines> orderIds = olDAO.readOrderId(orderId);
 		
+		for (int i=0; i < orderIds.size(); i++) {
+			Item item = itemDAO.read(orderIds.get(i).getItemId());
+			total += item.getValue() * orderIds.get(i).getQuantity();
+		}
+		return total;
+		
+		
+		
+
 	}
 
 }

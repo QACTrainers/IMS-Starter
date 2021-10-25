@@ -6,33 +6,18 @@ public class Order {
 
 	private long id;
 	private long customer_id;
-	
-	
-	
-	public Order(long customer_id, long item_id) {
+
+	public Order(long customer_id) {
 		super();
 		this.customer_id = customer_id;
-		
+
 	}
 
-	public Order(long id, long customer_id, long item_id) {
+	public Order(long id, long customer_id) {
 		super();
 		this.id = id;
 		this.customer_id = customer_id;
-		
-	}
 
-	public Order(long id, long customer_id, long items, double total) {
-		super();
-		this.id = id;
-		this.customer_id = customer_id;
-		
-	}
-
-	public Order(long customer_id, long items, double total) {
-		super();
-		this.customer_id = customer_id;
-		
 	}
 
 	public long getId() {
@@ -50,8 +35,6 @@ public class Order {
 	public void setCustomer_id(long customer_id) {
 		this.customer_id = customer_id;
 	}
-
-	
 
 	@Override
 	public String toString() {
@@ -75,6 +58,4 @@ public class Order {
 		return customer_id == other.customer_id && id == other.id;
 	}
 
-	
-	
 }

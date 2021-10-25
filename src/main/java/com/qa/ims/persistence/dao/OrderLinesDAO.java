@@ -16,6 +16,7 @@ import com.qa.ims.utils.DBUtils;
 
 public class OrderLinesDAO implements Dao<OrderLines> {
 	public static final Logger LOGGER = LogManager.getLogger();
+
 	@Override
 	public List<OrderLines> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -48,14 +49,20 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 		}
 		return null;
 	}
-	
-	public OrderLines readOrderId(Long id) {
+
+	public List<OrderLines> readOrderId(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM order_line WHERE order_id = ?");) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM order_line WHERE order_id = ?");) {
 			statement.setLong(1, id);
-			try (ResultSet resultSet = statement.executeQuery();) {
-				resultSet.next();
-				return modelFromResultSet(resultSet);
+			ResultSet resultSet = statement.executeQuery();
+			{
+
+				List<OrderLines> orderL = new ArrayList<>();
+				while (resultSet.next()) {
+					orderL.add(modelFromResultSet(resultSet));
+				}
+				return orderL;
 			}
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -72,7 +79,6 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 			statement.setLong(1, t.getOrderId());
 			statement.setLong(2, t.getItemId());
 			statement.setLong(3, t.getQuantity());
-			
 
 			statement.executeUpdate();
 			return readLatest();
@@ -135,5 +141,4 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 		return new OrderLines(id, item_id, quantity);
 	}
 
-	
 }

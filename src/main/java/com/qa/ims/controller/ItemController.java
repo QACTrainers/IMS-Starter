@@ -38,7 +38,7 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a value eg 50.47 = £50.47");
 		double value = utils.getDouble();
 		Item item = itemDAO.create(new Item(itemName, value));
-		LOGGER.info("Customer created");
+		LOGGER.info("Item Added");
 		return item;
 	}
 
@@ -51,7 +51,7 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a value eg 50.47 = £50.47");
 		double value = utils.getDouble();
 		Item item = itemDAO.update(new Item(id, itemName, value));
-		LOGGER.info("Customer Updated");
+		LOGGER.info("Item Added");
 		return item;
 	}
 

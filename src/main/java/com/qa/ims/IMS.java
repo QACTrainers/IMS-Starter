@@ -34,7 +34,7 @@ public class IMS {
 		this.items = new ItemController(itemDAO, utils);
 		final OrderDAO ordDAO = new OrderDAO();
 		final OrderLinesDAO olDAO = new OrderLinesDAO();
-		this.orders = new OrderController(ordDAO, utils, olDAO);
+		this.orders = new OrderController(itemDAO, ordDAO, utils, olDAO);
 	}
 
 	public void imsSystem() {
@@ -105,10 +105,13 @@ public class IMS {
 			break;
 		case ADDITEM:
 			this.orders.addItem();
+			break;
 		case REMOVEITEM:
 			this.orders.removeItem();
+			break;
 		case TOTAL:
 			this.orders.total();
+			break;
 		case RETURN:
 			break;
 		default:
