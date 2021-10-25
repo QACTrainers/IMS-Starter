@@ -102,6 +102,7 @@ public class OrderController implements CrudController<Order> {
 			Item item = itemDAO.read(orderIds.get(i).getItemId());
 			total += item.getValue() * orderIds.get(i).getQuantity();
 		}
+		LOGGER.info(total);
 		return total;
 		
 		
