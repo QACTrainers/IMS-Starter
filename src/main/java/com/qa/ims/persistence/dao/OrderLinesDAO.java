@@ -89,7 +89,7 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 		return null;
 	}
 
-	private OrderLines readLatest() {
+	public OrderLines readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM order_line ORDER BY id DESC LIMIT 1");) {
@@ -106,7 +106,7 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 	public OrderLines update(OrderLines t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE order_line SET item_id = ?, quantity = ?, WHERE id = ?");) {
+						.prepareStatement("UPDATE order_line SET item_id = ?, quantity = ? WHERE id = ?");) {
 			statement.setLong(1, t.getItemId());
 			statement.setLong(2, t.getQuantity());
 			statement.setLong(3, t.getId());

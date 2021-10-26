@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.exceptions.OrderNotFoundException;
 import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.dao.OrderLinesDAO;
@@ -71,8 +72,9 @@ public class OrderController implements CrudController<Order> {
 		return orderDAO.delete(id);
 	}
 
-	public OrderLines addItem() {
-		LOGGER.info("Please enter the order ID");
+	public OrderLines addItem(){
+		
+			LOGGER.info("Please enter the order ID");
 		Long orderId = utils.getLong();
 		LOGGER.info("Please enter the Item ID");
 		Long itemId = utils.getLong();
@@ -81,6 +83,9 @@ public class OrderController implements CrudController<Order> {
 		OrderLines orderL = olDAO.create(new OrderLines(orderId, itemId, quant));
 		LOGGER.info("Item has been added");
 		return orderL;
+		
+		
+		
 
 	}
 

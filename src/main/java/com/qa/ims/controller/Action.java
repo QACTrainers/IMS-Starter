@@ -36,7 +36,7 @@ public enum Action {
 	 */
 	public static void printAction() {
 //		for (Action action : Action.values()) 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{ 	Action action = Action.values()[i];
 			LOGGER.info(action.getDescription());
 		}

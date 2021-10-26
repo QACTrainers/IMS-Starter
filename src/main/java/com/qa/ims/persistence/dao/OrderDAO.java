@@ -70,7 +70,7 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	private Order readLatest() {
+	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY id DESC LIMIT 1");) {
