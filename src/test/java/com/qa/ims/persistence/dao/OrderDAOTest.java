@@ -54,5 +54,10 @@ public class OrderDAOTest {
 	public void testDelete() {
 		assertEquals(0, DAO.delete(1));
 	}
-
+	@Test
+	public void testReadFail() {
+		final long ID = 1L;
+		assertEquals(new Order(ID, 1L), DAO.read(ID));
+	}
+	
 }

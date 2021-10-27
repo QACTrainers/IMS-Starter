@@ -49,5 +49,22 @@ public class ItemDAOTest {
 	public void testDelete() {
 		assertEquals(0, DAO.delete(1));
 	}
+	@Test
+	public void testReadFail() {
+		final long ID = 20L;
+		assertEquals(null, DAO.read(ID));
+	}
+	@Test
+	public void testUpdateFail() {
+		final Item updated = new Item(20L, "ps5", 400.53d);
+		assertEquals(null, DAO.update(updated));
+		
+	}
+	@Test
+	public void testDeleteFail() {
+		assertEquals(0, DAO.delete(20));
+	}
+	
+	
 	
 }
