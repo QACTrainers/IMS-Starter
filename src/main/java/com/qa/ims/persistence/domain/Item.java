@@ -38,7 +38,7 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "Items [id: " + id + ", item_name: " + item_name + ", value: " + value + "]";
+		return "id:" + id + ", item_name:" + item_name + ", value:" + value;
 	}
 	@Override
 	public int hashCode() {
