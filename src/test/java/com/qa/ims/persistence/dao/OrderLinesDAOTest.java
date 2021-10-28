@@ -58,4 +58,32 @@ public class OrderLinesDAOTest {
 		expected.add(new OrderLines(1L, 1L, 1L, 8L));
 		assertEquals(expected, DAO.readOrderId(ID));
 	}
+	@Test
+	public void testCreateFail() {
+		final OrderLines created = new OrderLines(2L, 300L, 1L, 8L);
+		assertEquals(null, DAO.create(created));
+	}
+	@Test
+	public void testReadFail() {
+		final long ID = 20L;
+		assertEquals(null, DAO.read(ID));
+	}
+	@Test
+	public void testUpdateFail() {
+		
+		assertEquals(null, DAO.update(null));
+
+	}
+	@Test
+	public void readOrderIdTestFail() {
+		final long ID = 0L;
+		List<OrderLines> expected = new ArrayList<>();
+		expected.add(new OrderLines(1L, 1L, 1L, 8L));
+		assertEquals(null, DAO.readOrderId(ID));
+	}
+	@Test
+	public void testDeleteFail() {
+		final long id = 0;
+		assertEquals(0, DAO.delete(id));
+	}
 }

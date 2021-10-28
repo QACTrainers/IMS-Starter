@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.exceptions.OrderNotFoundException;
 import com.qa.ims.persistence.domain.OrderLines;
 import com.qa.ims.utils.DBUtils;
 
@@ -54,6 +55,9 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("SELECT * FROM order_line WHERE order_id = ?");) {
+			if (id == 0) {
+				throw new OrderNotFoundException();
+				}
 			statement.setLong(1, id);
 			ResultSet resultSet = statement.executeQuery();
 			{
@@ -124,6 +128,9 @@ public class OrderLinesDAO implements Dao<OrderLines> {
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM order_line WHERE id = ?");) {
+			if (id == 0) {
+				throw new OrderNotFoundException();
+				}
 			statement.setLong(1, id);
 			return statement.executeUpdate();
 		} catch (Exception e) {

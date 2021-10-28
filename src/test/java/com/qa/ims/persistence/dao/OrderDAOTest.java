@@ -54,10 +54,27 @@ public class OrderDAOTest {
 	public void testDelete() {
 		assertEquals(0, DAO.delete(1));
 	}
+
 	@Test
 	public void testReadFail() {
 		final long ID = 1L;
 		assertEquals(new Order(ID, 1L), DAO.read(ID));
 	}
-	
+	@Test
+	public void testUpdateFail() {
+		
+		assertEquals(null, DAO.update(null));
+
+	}
+	@Test
+	public void testDeleteFail() {
+		assertEquals(0, DAO.delete(20));
+	}
+	@Test
+	public void testCreateFail() {
+		final Order created = new Order(2L, 600L);
+
+		assertEquals(null, DAO.create(created));
+	}
+
 }
