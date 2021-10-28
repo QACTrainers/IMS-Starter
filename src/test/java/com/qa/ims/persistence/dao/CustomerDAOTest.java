@@ -54,6 +54,29 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testDelete() {
-		assertEquals(1, DAO.delete(1));
+		assertEquals(0, DAO.delete(1));
 	}
+
+	@Test
+	public void testReadFail() {
+		final long ID = 20L;
+		assertEquals(null , DAO.read(ID));
+	}
+	@Test
+	public void testUpdateFail() {
+		final Customer updated = new Customer(20L, "chris", "perrins");
+		assertEquals(null, DAO.update(null));
+
+	}
+	@Test
+	public void testDeleteFail() {
+		assertEquals(0, DAO.delete(20));
+	}
+	@Test
+	public void testCreateFail() {
+		final Customer created = new Customer(2L, "SomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLongSomethingTooLong", "perrins");
+		assertEquals(null, DAO.create(created));
+	}
+	
+
 }

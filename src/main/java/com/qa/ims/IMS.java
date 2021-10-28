@@ -6,7 +6,12 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDAO;
+import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.dao.OrderLinesDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -17,11 +22,19 @@ public class IMS {
 
 	private final CustomerController customers;
 	private final Utils utils;
+	private final ItemController items;
+
+	private final OrderController orders;
 
 	public IMS() {
 		this.utils = new Utils();
 		final CustomerDAO custDAO = new CustomerDAO();
 		this.customers = new CustomerController(custDAO, utils);
+		final ItemDAO itemDAO = new ItemDAO();
+		this.items = new ItemController(itemDAO, utils);
+		final OrderDAO ordDAO = new OrderDAO();
+		final OrderLinesDAO olDAO = new OrderLinesDAO();
+		this.orders = new OrderController(itemDAO, ordDAO, utils, olDAO);
 	}
 
 	public void imsSystem() {
@@ -50,8 +63,10 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
+				active = this.items;
 				break;
 			case ORDER:
+				active = this.orders;
 				break;
 			case STOP:
 				return;
@@ -60,10 +75,12 @@ public class IMS {
 			}
 
 			LOGGER.info(() ->"What would you like to do with " + domain.name().toLowerCase() + ":");
-
-			Action.printActions();
+			if (domain == domain.ORDER) {
+				Action.printActions();
+			}else { 
+			Action.printAction();}
 			Action action = Action.getAction(utils);
-
+			
 			if (action == Action.RETURN) {
 				changeDomain = true;
 			} else {
@@ -85,6 +102,15 @@ public class IMS {
 			break;
 		case DELETE:
 			crudController.delete();
+			break;
+		case ADDITEM:
+			this.orders.addItem();
+			break;
+		case REMOVEITEM:
+			this.orders.removeItem();
+			break;
+		case TOTAL:
+			this.orders.total();
 			break;
 		case RETURN:
 			break;
