@@ -2,6 +2,7 @@ package com.qa.ims.controllers;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,23 +14,25 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.qa.ims.controller.CustomerController;
 import com.qa.ims.persistence.domain.Customer;
 
-import Services.CustomerServices;
 
-import com.qa.ims.persistence.*;
-import com.qa.ims.persistence.domain.*;
-import com.qa.ims.controller.*;
-import com.qa.ims.controllers.*;
-import com.qa.ims.exceptions.*;
-import com.qa.ims.*;
+import Services.CrudServices;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerControllerTest {
+public class CustomerDAOTest {
 	
+	/**
+	 *  The thing I want to fake functionlity for
+	 */
+	@Mock
+	private CrudServices<Customer> customerServices;
 	
-	private CustomerServices customerServices;
-	
+	/**
+	 * Spy is used because i want to mock some methods inside the item I'm testing
+	 * InjectMocks uses dependency injection to insert the mock into the customer controller
+	 */
 	@Spy
 	@InjectMocks
 	private CustomerController customerController;
@@ -67,7 +70,7 @@ public class CustomerControllerTest {
 		String firstName = "Rhys";
 		String surname = "Thompson";
 		String address = "address";
-		Mockito.doReturn(id, firstName, surname, address).when(customerController).getInput();
+		Mockito.doReturn(id, firstName, surname).when(customerController).getInput();
 		Customer customer = new Customer(1L, firstName, surname);
 		Mockito.when(customerServices.update(customer)).thenReturn(customer);
 		assertEquals(customer, customerController.update());

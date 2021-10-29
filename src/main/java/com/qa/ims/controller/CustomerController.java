@@ -2,12 +2,14 @@ package com.qa.ims.controller;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.CustomerDAO;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.Utils;
+
+import Services.CrudServices;
 
 /**
  * Takes in customer details for CRUD functionality
@@ -15,15 +17,16 @@ import com.qa.ims.utils.Utils;
  */
 public class CustomerController implements CrudController<Customer> {
 
-	public static final Logger LOGGER = LogManager.getLogger();
+	public static final Logger LOGGER = LogManager.getLogger(CustomerController.class);
 
-	private CustomerDAO customerDAO;
-	private Utils utils;
+	private CrudServices<Customer> customerService;
 
-	public CustomerController(CustomerDAO customerDAO, Utils utils) {
-		super();
-		this.customerDAO = customerDAO;
-		this.utils = utils;
+	public CustomerController(CrudServices<Customer> customerService) {
+		this.customerService = customerService;
+	}
+
+	public String getInput() {
+		return Utils.getInput();
 	}
 
 	/**
@@ -31,9 +34,9 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public List<Customer> readAll() {
-		List<Customer> customers = customerDAO.readAll();
+		List<Customer> customers = customerService.readAll();
 		for (Customer customer : customers) {
-			LOGGER.info(customer);
+			LOGGER.info(customer.toString());
 		}
 		return customers;
 	}
@@ -44,10 +47,10 @@ public class CustomerController implements CrudController<Customer> {
 	@Override
 	public Customer create() {
 		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
+		String firstName = getInput();
 		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Customer customer = customerDAO.create(new Customer(firstName, surname));
+		String surname = getInput();
+		Customer customer = customerService.create(new Customer(firstName, surname));
 		LOGGER.info("Customer created");
 		return customer;
 	}
@@ -57,27 +60,26 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer update() {
-		LOGGER.info("Please enter the id of the customer you would like to update");
-		Long id = utils.getLong();
+		LOGGER.info("Please enter the customer_id of the customer you would like to update");
+		Long customer_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
+		String firstName = getInput();
 		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
+		String surname = getInput();
+		Customer customer = customerService.update(new Customer(customer_id, firstName, surname));
 		LOGGER.info("Customer Updated");
 		return customer;
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
-	 * 
-	 * @return
+	 * Deletes an existing customer by the customer_id of the customer
 	 */
 	@Override
-	public int delete() {
-		LOGGER.info("Please enter the id of the customer you would like to delete");
-		Long id = utils.getLong();
-		return customerDAO.delete(id);
+	public void delete() {
+		LOGGER.info("Please enter the customer_id of the customer you would like to delete");
+		Long customer_id = Long.valueOf(getInput());
+		LOGGER.info("Customer Deleted"); 
+		customerService.delete(customer_id);
 	}
 
 }

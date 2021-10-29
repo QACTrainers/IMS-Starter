@@ -83,4 +83,24 @@ public class Customer {
 		return true;
 	}
 
+	public Object readAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object create(Customer customer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object update(Customer customer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void delete(long l) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

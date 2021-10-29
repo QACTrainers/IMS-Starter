@@ -8,9 +8,9 @@ public class Runner {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static void main(String[] args) {
-		IMS ims = new IMS();
+		Ims ims = new Ims();
 		ims.imsSystem();
-		LOGGER.info("SO LONG!");
+		LOGGER.info("Connected!");
 	}
 
 }
