@@ -1,4 +1,4 @@
-# Inventory Management System Application by Mohamud Mussa
+# Inventory Management System Application by Adam Mussa
 
 
 This is an  **Inventory Management System Application** that was build using Java and can be interact with via a Command-Line Interface. The inventory management system connects to a database and allows the end user to easily add, delete, update and create an **Customers**, **Orders** and **Items** as well. This application also allows the end user to calculate the cost of an order. 
