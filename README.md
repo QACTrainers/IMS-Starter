@@ -1,68 +1,44 @@
-Coverage: 34%
-# Project Title
+# Inventory Management System Application by Mohamud Mussa
 
-One Paragraph of project description goes here
+
+This is an  **Inventory Management System Application** that was build using Java and can be interact with via a Command-Line Interface. The inventory management system connects to a database and allows the end user to easily add, delete, update and create an **Customers**, **Orders** and **Items** as well. This application also allows the end user to calculate the cost of an order. 
+
+## Table of contents
+* [Prerequisite](#Prerequisite)
+* [Built With](#Built_With)
+* [Authors](#Authors)
+* [License](#License)
+* [Acknowledgments](#Acknowledgments)
+
+
+
+
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
+### Prerequisite
 
-```
-Give examples
-```
+* [Java 14.1](https://www.eclipse.org/downloads/)
+* [Git](https://git-scm.com/downloads)
+* [Eclipse](https://www.eclipse.org/downloads/)
+* [MySQL](https://www.mysql.com/downloads/)
+* [Maven](http://maven.apache.org/download.cgi)
+
+
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+1. You will need to clone down the repo, here is a link to the repo 
+* To do this, Git Bash in the desired folder you'd like to clone to.
+* Once Git opens, you will need to initialise git, do this with the following command;
 
-Say what the step will be
 
-```
-Give the example
-```
+5. You can now use the program via the command line.
 
-And repeat
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system. Break down into which tests and what they do
-
-### Unit Tests 
-
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -70,11 +46,16 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning.
+* Version Control System: Git
+* Source Code Management: GitHub
+* Database Management System: MySQL Server 5.7 
+
+
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+
+* **Adam Mussa** - *The rest of the work* 
 
 ## License
 
@@ -84,6 +65,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* QA community
+
+
