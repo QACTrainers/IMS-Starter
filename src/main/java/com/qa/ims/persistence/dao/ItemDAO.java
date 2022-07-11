@@ -26,10 +26,6 @@ public class ItemDAO implements Dao<Item> {
 		return new Item(item_id, item_name, item_price);
 	}
 
-	public void testMerge() {
-		System.out.println("test");
-	}
-
 	@Override
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -123,6 +119,11 @@ public class ItemDAO implements Dao<Item> {
 		}
 		return 0;
 
+	}
+
+	// method purely here to test merging with git
+	public void testMerge() {
+		System.out.println("test");
 	}
 
 }
