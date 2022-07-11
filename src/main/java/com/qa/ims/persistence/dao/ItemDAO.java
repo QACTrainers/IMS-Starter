@@ -118,6 +118,12 @@ public class ItemDAO implements Dao<Item> {
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
+
+	}
+
+	// method purely here to test merging with git
+	public void testMerge() {
+		System.out.println("test");
 	}
 
 }
