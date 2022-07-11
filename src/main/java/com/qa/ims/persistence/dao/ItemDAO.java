@@ -26,6 +26,10 @@ public class ItemDAO implements Dao<Item> {
 		return new Item(item_id, item_name, item_price);
 	}
 
+	public void test() {
+		System.out.println("test");
+	}
+
 	@Override
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -118,6 +122,7 @@ public class ItemDAO implements Dao<Item> {
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
+
 	}
 
 }
