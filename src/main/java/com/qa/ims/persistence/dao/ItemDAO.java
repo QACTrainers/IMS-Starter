@@ -28,6 +28,7 @@ public class ItemDAO implements Dao<Item> {
 
 	public void test() {
 		System.out.println("test");
+		System.out.println("Test again from feature");
 	}
 
 	@Override
