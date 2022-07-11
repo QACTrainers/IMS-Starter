@@ -1,7 +1,10 @@
 Coverage: 34%
-# Project Title
+# Inventory Management System (IMS)
 
-One Paragraph of project description goes here
+A simple Java CRUD command line project which allows a user to manage customers, items and orders stored in a MySQL database.
+
+## View my Trello Board
+https://trello.com/b/14cXJsES/ims
 
 ## Getting Started
 
