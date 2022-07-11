@@ -65,6 +65,11 @@ public class Item {
     }
 
     @Override
+    public String toString() {
+        return "id:" + itemID + " item name: " + itemName + " item value: £" + itemValue + " quantity: " + quantity + " colour: " + colour;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

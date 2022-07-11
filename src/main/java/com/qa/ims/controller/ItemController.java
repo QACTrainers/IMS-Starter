@@ -2,7 +2,6 @@ package com.qa.ims.controller;
 
 import java.util.List;
 
-import com.qa.ims.persistence.domain.Customer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +34,16 @@ public class ItemController implements CrudController<Item>{
         }
         return items;
     }
+
+    /*
+    	public List<Customer> readAll() {
+		List<Customer> customers = customerDAO.readAll();
+		for (Customer customer : customers) {
+			LOGGER.info(customer);
+		}
+		return customers;
+	}
+     */
 
     @Override
     public Item create() {
