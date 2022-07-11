@@ -26,9 +26,8 @@ public class ItemDAO implements Dao<Item> {
 		return new Item(item_id, item_name, item_price);
 	}
 
-	public void test() {
+	public void testMerge() {
 		System.out.println("test");
-		System.out.println("Test again from feature");
 	}
 
 	@Override
