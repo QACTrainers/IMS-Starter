@@ -69,10 +69,7 @@ public class Item {
         } else if (!itemName.equals(other.itemName))
             return false;
         if (itemId == null) {
-            if (other.itemId != null)
-                return false;
-        } else if (!itemId.equals(other.itemId))
-            return false;
-        return true;
+            return other.itemId == null;
+        } else return itemId.equals(other.itemId);
     }
 }
