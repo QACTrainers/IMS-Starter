@@ -13,6 +13,12 @@ public class Item {
 		this.item_price = item_price;
 	}
 
+	public Item(String item_name, double item_price) {
+		super();
+		this.item_name = item_name;
+		this.item_price = item_price;
+	}
+
 	public long getItem_id() {
 		return item_id;
 	}
