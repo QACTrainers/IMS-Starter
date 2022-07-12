@@ -20,49 +20,104 @@ public class ItemDAO implements Dao<Item> {
 
 	@Override
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long item_id = resultSet.getLong("item_id");
-		String item_name = resultSet.getString("item_name");
-		Double item_price = resultSet.getDouble("item_price"); // int or double? can't remember which datatypes Java
-																// doesnt like
-		return new Item(item_id, item_name, item_price);
+		Long itemId = resultSet.getLong("itemId");
+		String itemName = resultSet.getString("itemName");
+		Double itemPrice = resultSet.getDouble("itemPrice");
+		return new Item(itemId, itemName, itemPrice);
 	}
 
 	@Override
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM items");){
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM item");) {
 			List<Item> items = new ArrayList<>();
 			while (resultSet.next()) {
 				items.add(modelFromResultSet(resultSet));
-			}		
-		return items;
-	} catch (SQLException e){
+			}
+			return items;
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
 
-	@Override
-	public Item create(Item t) {
-		// TODO Auto-generated method stub
+	public Item readLatestItem() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM item ORDER BY itemId DESC LIMIT 1");) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
-	public Item update(Item t) {
-		// TODO Auto-generated method stub
+	public Item read(Long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE itemId = ?");) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return modelFromResultSet(resultSet);
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public Item create(Item item) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO item(itemName, itemPrice) VALUES (?, ?)");) {
+			statement.setString(1, item.getItemName());
+			statement.setDouble(2, item.getItemPrice());
+			statement.executeUpdate();
+			return readLatestItem();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public Item update(Item item) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE item SET itemName = ?, itemPrice = ? WHERE itemId = ?");) {
+			statement.setString(1, item.getItemName());
+			statement.setDouble(2, item.getItemPrice());
+			statement.setLong(3, item.getItemId());
+			statement.executeUpdate();
+			return read(item.getItemId());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE itemId = ?")) {
+			statement.setLong(1, id);
+			return statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return 0;
 	}
 
-	@Override
-	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
 
-}
+// Test to see if Feature Branch Model push + commit is working
