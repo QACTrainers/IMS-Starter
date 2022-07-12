@@ -18,20 +18,15 @@ public class ItemDAOTest {
 
     @Before
     public void setup() {
-
-        DBUtils.getInstance().init("sql-schema.sql", "sql-data.sql");
-    }
-
-    @BeforeClass
-    public static void init() {
         DBUtils.connect();
+        DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
     }
+
 
     @Test
     public void testCreate() {
-        final Item created = new Item(1L, "butter knife", 2L, 25L, "silver");
-        System.out.println(created.toString());
-        assertEquals(created, DAO.create(new Item(1L, "butter knife", 2L, 25L, "silver")));
+        final Item created = new Item(2L, "butter knife", 2L, 25L, "silver");
+        assertEquals(created, DAO.create(created));
     }
 
     @Test
