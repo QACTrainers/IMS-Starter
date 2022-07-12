@@ -13,6 +13,12 @@ public class Item {
 		this.setStock(stock);
 	}
 
+	public Item(Long itemID, Double price, Long stock) {
+		this.setItemID(itemID);
+		this.setPrice(price);
+		this.setStock(stock);
+	}
+
 	public Item(Long itemID, String itemName, Double price, Long stock) {
 		this.setItemID(itemID);
 		this.setItemName(itemName);
