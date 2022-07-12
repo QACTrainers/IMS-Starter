@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Item {
     private Long itemId;
     private String itemName;
-    private double itemPrice;
+    private Double itemPrice;
 
-    public Item(String itemName, double itemPrice) {
+    public Item(String itemName, Double itemPrice) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
     }
 
-    public Item(Long itemId, String itemName, double itemPrice) {
+    public Item(Long itemId, String itemName, Double itemPrice) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
@@ -34,11 +34,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public double getItemPrice() {
+    public Double getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(double itemPrice) {
+    public void setItemPrice(Double itemPrice) {
         this.itemPrice = itemPrice;
     }
 

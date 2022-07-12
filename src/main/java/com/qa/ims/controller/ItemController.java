@@ -12,9 +12,8 @@ import java.util.List;
 public class ItemController implements CrudController<Item>{
 
     public static final Logger LOGGER = LogManager.getLogger();
-
-    private ItemDAO itemDAO;
-    private Utils utils;
+    private final ItemDAO itemDAO;
+    private final Utils utils;
 
     public ItemController(ItemDAO itemDAO, Utils utils) {
         super();
@@ -45,12 +44,12 @@ public class ItemController implements CrudController<Item>{
     @Override
     public Item update() {
         LOGGER.info("Please enter the ID of the Item you would like to update");
-        Long id = utils.getLong();
+        Long itemId = utils.getLong();
         LOGGER.info("Please enter a updated name");
         String itemName = utils.getString();
         LOGGER.info("Please enter an updated price");
         Double itemPrice = utils.getDouble();
-        Item item = itemDAO.update(new Item(id, itemName, itemPrice));
+        Item item = itemDAO.update(new Item(itemId, itemName, itemPrice));
         LOGGER.info("Item Successfully Updated");
         return item;
     }
@@ -58,8 +57,9 @@ public class ItemController implements CrudController<Item>{
     @Override
     public int delete() {
         LOGGER.info("Please enter the ID of the Item you would like to delete");
-        Long id = utils.getLong();
+        Long itemId = utils.getLong();
         LOGGER.info("Item Successfully Deleted");
-        return itemDAO.delete(id);
+        LOGGER.info("Item Successfully Deleted");
+        return itemDAO.delete(itemId);
     }
 }

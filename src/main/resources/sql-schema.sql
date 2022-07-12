@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS items
 (
     items_id    INT           NOT NULL AUTO_INCREMENT,
     items_name  VARCHAR(40)   NOT NULL,
-    items_price DECIMAL(5, 2) NOT NULL,
+    items_price DECIMAL(7, 2) NOT NULL,
     PRIMARY KEY (items_id)
 );
 
 CREATE TABLE IF NOT EXISTS orders
 (
     orders_id          INT           NOT NULL AUTO_INCREMENT,
-    orders_total_price DECIMAL(5, 2) NOT NULL,
+    orders_total_price DECIMAL(7, 2) NOT NULL,
     fk_customers_id    INT           NOT NULL,
     PRIMARY KEY (orders_id),
     FOREIGN KEY (fk_customers_id) REFERENCES customers (id)

@@ -51,5 +51,4 @@ public class Utils {
 		} while (doubleInput == null);
 		return doubleInput;
 	}
-
 }

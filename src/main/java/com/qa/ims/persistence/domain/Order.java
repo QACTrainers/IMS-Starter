@@ -73,7 +73,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order ID: " + orderId + ", Customer ID: " + customerId.getId() + ", Total Price: " + orderTotalPrice + ", Order Items: " + ordersItems;
+        return "Order ID: " + orderId + ", Customer ID: " + customerId.getId() + ", Total Price: " + orderTotalPrice + ", Order Items: " + ordersItems + " || ";
     }
 
     @Override
