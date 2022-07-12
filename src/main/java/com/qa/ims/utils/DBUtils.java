@@ -1,8 +1,10 @@
 package com.qa.ims.utils;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,6 +12,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,6 +50,15 @@ public class DBUtils {
 		}
 
 		return modified;
+	}
+
+	// method to automatically create the tables required for the database
+	public static void createTables() throws SQLException, FileNotFoundException {
+		Connection con = DriverManager.getConnection(instance.dbUrl, instance.dbUser, instance.dbPassword);
+		ScriptRunner sr = new ScriptRunner(con);
+		Reader reader = new BufferedReader(new FileReader("src/main/resources/sql-schema.sql"));
+		sr.runScript(reader);
+
 	}
 
 	public int executeSQLFile(String file) {
