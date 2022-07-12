@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qa.ims.persistence.domain.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -59,5 +58,35 @@ public class ItemControllerTest {
         Mockito.verify(dao, Mockito.times(1)).create(created);
     }
 
+    /*@Test
+    public void testUpdate() {
+        final String ITEM_NAME = "coffee mug", COLOUR = "green";
+        final Long ITEM_VALUE = 6L, QUANTITY = 25L;
+        Item updated = new Item(1L, ITEM_NAME, ITEM_VALUE, QUANTITY, COLOUR);
 
+        Mockito.when(utils.getLong()).thenReturn(1L);
+        Mockito.when(utils.getString()).thenReturn(ITEM_NAME);
+        Mockito.when(utils.getLong()).thenReturn(ITEM_VALUE, QUANTITY);
+        Mockito.when(utils.getString()).thenReturn(COLOUR);
+        Mockito.when(dao.update(updated)).thenReturn(updated);
+
+        assertEquals(updated, updated);
+
+        Mockito.verify(utils, Mockito.times(3)).getLong();
+        Mockito.verify(utils, Mockito.times(2)).getString();
+        Mockito.verify(dao, Mockito.times(1)).update(updated);
+    }*/
+
+    @Test
+    public void testDelete() {
+        final long ID = 1L;
+
+        Mockito.when(utils.getLong()).thenReturn(ID);
+        Mockito.when(dao.delete(ID)).thenReturn(1);
+
+        assertEquals(1L, this.controller.delete());
+
+        Mockito.verify(utils, Mockito.times(1)).getLong();
+        Mockito.verify(dao, Mockito.times(1)).delete(ID);
+    }
 }
