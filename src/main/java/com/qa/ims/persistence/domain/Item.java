@@ -1,5 +1,7 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class Item {
     private Long itemId;
     private String itemName;
@@ -42,27 +44,23 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item ID:" + itemId + ", Item Name:" + itemName + ", Item Price:" + itemPrice + ".";
+        return "Item ID: " + itemId + ", Item Name: " + itemName + ", Item Price: " + itemPrice + ".";
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
-        result = prime * result + ((itemId == null) ? 0 : itemId.hashCode());
-        return result;
+        return Objects.hash(itemName, itemId, itemPrice);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
-        if (obj == null)
+        if (o == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (getClass() != o.getClass())
             return false;
-        Item other = (Item) obj;
+        Item other = (Item) o;
         if (itemName == null) {
             if (other.itemName != null)
                 return false;
