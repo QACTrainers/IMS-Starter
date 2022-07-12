@@ -35,16 +35,6 @@ public class ItemController implements CrudController<Item>{
         return items;
     }
 
-    /*
-    	public List<Customer> readAll() {
-		List<Customer> customers = customerDAO.readAll();
-		for (Customer customer : customers) {
-			LOGGER.info(customer);
-		}
-		return customers;
-	}
-     */
-
     @Override
     public Item create() {
 
