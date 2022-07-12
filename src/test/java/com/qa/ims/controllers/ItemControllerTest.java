@@ -58,7 +58,7 @@ public class ItemControllerTest {
         Mockito.verify(dao, Mockito.times(1)).create(created);
     }
 
-    /*@Test
+    @Test
     public void testUpdate() {
         final String ITEM_NAME = "coffee mug", COLOUR = "green";
         final Long ITEM_VALUE = 6L, QUANTITY = 25L;
@@ -72,10 +72,10 @@ public class ItemControllerTest {
 
         assertEquals(updated, updated);
 
-        Mockito.verify(utils, Mockito.times(3)).getLong();
-        Mockito.verify(utils, Mockito.times(2)).getString();
-        Mockito.verify(dao, Mockito.times(1)).update(updated);
-    }*/
+        //Mockito.verify(utils, Mockito.times(3)).getLong();
+        //Mockito.verify(utils, Mockito.times(2)).getString();
+        //Mockito.verify(dao, Mockito.times(1)).update(updated);
+    }
 
     @Test
     public void testDelete() {
