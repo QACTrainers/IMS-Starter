@@ -44,7 +44,7 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter the price of the item");
 		Double price = utils.getDouble();
 		Item item = itemDAO.create(new Item(itemName, price));
-		LOGGER.info("Customer created");
+		LOGGER.info("New Item created");
 		return item;
 	}
 

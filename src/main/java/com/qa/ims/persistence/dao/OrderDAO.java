@@ -67,13 +67,12 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customer_id, item_id) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO orders(fk_customer_id, fk_item_id) VALUES (?, ?)");) {
 			statement.setLong(1, t.getCustomer_id());
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
 			PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO order_items (item_price, item_id, order_id, customer_id) SELECT item_price, item_id, order_id, customer_id FROM items i JOIN orders o ON i.fk_order_id = o.order_id"
-							+ "JOIN customers c ON o.fk_customer_id = c.id");
+					"INSERT INTO order_items (item_price, item_id, order_id, customer_id) SELECT item_price, item_id, order_id, customer_id FROM items i JOIN orders o ON i.fk_order_id = o.order_id JOIN customers c ON o.fk_customer_id = c.id;");
 			stmt.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
