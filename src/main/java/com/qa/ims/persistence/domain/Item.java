@@ -3,8 +3,8 @@ package com.qa.ims.persistence.domain;
 public class Item {
 
 	private Long itemID;
-	public String itemName;
-	public Double price;
+	private String itemName;
+	private Double price;
 
 	public Item(String itemName, Double price) {
 		this.setItemName(itemName);
@@ -48,7 +48,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [itemID=" + itemID + ", itemName=" + itemName + ", price=" + price + "]";
+		return "itemID = " + itemID + " itemName = " + itemName + " price = " + price;
 	}
 
 	@Override
