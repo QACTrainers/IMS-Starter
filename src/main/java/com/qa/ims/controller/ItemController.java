@@ -39,9 +39,11 @@ public class ItemController implements CrudController<Item> {
 	public Item update() {
 		LOGGER.info("Please enter the id of the item you would like to update");
 		Long itemID = utils.getLong();
+		LOGGER.info("Please enter the name of the item");
+		String itemName = utils.getString();
 		LOGGER.info("Please enter a price");
 		Double price = utils.getDouble();
-		Item item = itemDAO.update(new Item(itemID, price));
+		Item item = itemDAO.update(new Item(itemID, itemName, price));
 		LOGGER.info("Item Updated");
 		return item;
 	}
