@@ -70,15 +70,15 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (getItemID() == null) {
-			if (other.getItemID() != null)
+		if (getItemName() == null) {
+			if (other.getItemName() != null)
 				return false;
-		} else if (!getItemID().equals(other.getItemID()))
+		} else if (!getItemName().equals(other.getItemName()))
 			return false;
-		if (itemName == null) {
-			if (other.itemName != null)
+		if (itemID() == null) {
+			if (other.itemID() != null)
 				return false;
-		} else if (!itemName.equals(other.itemName))
+		} else if (!itemID().equals(other.itemID()))
 			return false;
 		if (price == null) {
 			if (other.price != null)
@@ -86,6 +86,11 @@ public class Item {
 		} else if (!price.equals(other.price))
 			return false;
 		return true;
+	}
+
+	private Object itemID() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
