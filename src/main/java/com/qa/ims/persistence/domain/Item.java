@@ -1,6 +1,8 @@
 package com.qa.ims.persistence.domain;
 //DONE
 
+import java.util.Objects;
+
 public class Item {
     //Item(itemID, itemName, itemValue, quantity, colour)
     private Long itemID;
@@ -69,52 +71,17 @@ public class Item {
         return "id:" + itemID + " item name: " + itemName + " item value: £" + itemValue + " quantity: " + quantity + " colour: " + colour;
     }
 
+
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((itemID == null) ? 0 : itemID.hashCode());
-        result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
-        result = prime * result + ((itemValue == null) ? 0 : itemValue.hashCode());
-        result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
-        result = prime * result + ((colour == null) ? 0 : colour.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(itemID, item.itemID) && Objects.equals(itemName, item.itemName) && Objects.equals(itemValue, item.itemValue) && Objects.equals(quantity, item.quantity) && Objects.equals(colour, item.colour);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Item other = (Item) obj;
-        if (itemName == null) {
-            if (other.getItemID() != null)
-                return false;
-        } else if (itemName.equals(other.getItemName()))
-            return false;
-        if (itemID == null) {
-            if (other.getItemID() != null)
-                return false;
-        } else if (!itemID.equals(other.getItemID()))
-            return false;
-        if (itemValue == null) {
-            if (other.getItemValue() != null)
-                return false;
-        } else if (!itemValue.equals(other.getItemValue()))
-            return false;
-        if (quantity == null) {
-            if (other.getQuantity() != null)
-                return false;
-        } else if (!quantity.equals(other.getQuantity()))
-            return false;
-        if (colour == null) {
-            if (other.getColour() != null)
-                return false;
-        } else if (!colour.equals(other.getColour()))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(itemID, itemName, itemValue, quantity, colour);
     }
 }
