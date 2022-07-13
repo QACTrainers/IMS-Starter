@@ -51,7 +51,7 @@ public class OrderController implements CrudController<Order> {
         Long orders_id = utils.getLong();
         LOGGER.info("Do you want to Add or Remove an item?");
         String choice = utils.getString();
-        LOGGER.info("Enter the Item ID you would like to update");
+        LOGGER.info("Enter the Item ID");
         Long items_id = utils.getLong();
         if (choice.equals("Add")) {
             order = orderDAO.updateAdd(orders_id, items_id);

@@ -69,6 +69,7 @@ public class OrderDAO implements Dao<Order> {
         return 0.0;
     }
 
+    @Override
     public Order create(Order order) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
@@ -128,7 +129,6 @@ public class OrderDAO implements Dao<Order> {
         }
         return new ArrayList<>();
     }
-
 
     @Override
     public Order update(Order order) {
