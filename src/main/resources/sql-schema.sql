@@ -30,8 +30,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 	
 CREATE TABLE IF NOT EXISTS `order_items` (
 	`order_item_id` INT (8) UNIQUE NOT NULL AUTO_INCREMENT,
-	`unit_price` 	DOUBLE NOT NULL,
-	`unit_quantity` INT NOT NULL,
+	`unit_price` DOUBLE NOT NULL,
+	`item_name` VARCHAR (55) NOT NULL,
+	`unit_quantity` INT NOT NULL DEFAULT 1,
 	`fk_order_id` INT NOT NULL,
 	`fk2_item_id` INT NOT NULL,
 	`fk2_customer_id` INT NOT NULL,

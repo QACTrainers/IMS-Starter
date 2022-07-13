@@ -72,7 +72,7 @@ public class OrderDAO implements Dao<Order> {
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
 			PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO order_items (item_price, item_id, order_id, customer_id) SELECT item_price, item_id, order_id, customer_id FROM items i JOIN orders o ON i.fk_order_id = o.order_id JOIN customers c ON o.fk_customer_id = c.id;");
+					"INSERT INTO order_items (unit_price, fk2_item_id, item_name, fk_order_id, fk2_customer_id) SELECT item_price, item_id, item_name, order_id, id FROM items i JOIN orders o ON i.item_id = o.fk_item_id JOIN customers c ON o.fk_customer_id = c.id;");
 			stmt.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -118,5 +118,19 @@ public class OrderDAO implements Dao<Order> {
 		Long item_id = resultSet.getLong("item_id");
 		return new Order(order_id, item_id);
 
+	}
+
+	public Order viewOrder(long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("Select * FROM order_items WHERE fk_order_id = ?");) {
+			((PreparedStatement) resultSet).setLong(1, id);
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
 	}
 }
