@@ -6,6 +6,12 @@ public class Order {
 	private long customer_id;
 	private long item_id;
 
+	public Order(long customer_id, long item_id) {
+		super();
+		this.customer_id = customer_id;
+		this.item_id = item_id;
+	}
+
 	public Order(long order_id, long customer_id, long item_id) {
 		super();
 		this.order_id = order_id;

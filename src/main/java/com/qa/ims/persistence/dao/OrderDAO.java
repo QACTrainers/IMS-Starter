@@ -71,6 +71,10 @@ public class OrderDAO implements Dao<Order> {
 			statement.setLong(1, t.getCustomer_id());
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
+			PreparedStatement stmt = connection.prepareStatement(
+					"INSERT INTO order_items (item_price, item_id, order_id, customer_id) SELECT item_price, item_id, order_id, customer_id FROM items i JOIN orders o ON i.fk_order_id = o.order_id"
+							+ "JOIN customers c ON o.fk_customer_id = c.id");
+			stmt.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -112,9 +116,8 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long order_id = resultSet.getLong("order_id");
-		Long customer_id = resultSet.getLong("customer_id");
 		Long item_id = resultSet.getLong("item_id");
-		return new Order(order_id, customer_id, item_id);
+		return new Order(order_id, item_id);
 
 	}
 }
