@@ -22,8 +22,7 @@ public class ItemDAO implements Dao<Item> {
 		Long itemID = resultSet.getLong("itemID");
 		String itemName = resultSet.getString("itemName");
 		Double price = resultSet.getDouble("price");
-		Long stock = resultSet.getLong("stock");
-		return new Item(itemID, itemName, price, stock);
+		return new Item(itemID, itemName, price);
 	}
 
 	/**
@@ -85,11 +84,10 @@ public class ItemDAO implements Dao<Item> {
 	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Item SET itemName = ?, price = ?, stock = ? WHERE itemID = ?");) {
+						.prepareStatement("UPDATE Item SET itemName = ?, price = ?, WHERE itemID = ?");) {
 			statement.setString(1, item.getItemName());
 			statement.setDouble(2, item.getPrice());
-			statement.setLong(3, item.getStock());
-			statement.setLong(4, item.getItemID());
+			statement.setLong(3, item.getItemID());
 			statement.executeUpdate();
 			return read(item.getItemID());
 		} catch (Exception e) {
@@ -103,10 +101,9 @@ public class ItemDAO implements Dao<Item> {
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Item SET price = ?, stock = ? WHERE itemID = ?");) {
+						.prepareStatement("UPDATE Item SET price = ?, WHERE itemID = ?");) {
 			statement.setDouble(1, item.getPrice());
-			statement.setLong(2, item.getStock());
-			statement.setLong(3, item.getItemID());
+			statement.setLong(2, item.getItemID());
 			statement.executeUpdate();
 			return read(item.getItemID());
 		} catch (Exception e) {
