@@ -19,8 +19,8 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Java v11 (or higher)
-MySQL v8 (or higher)
+Java v11 (or higher) - https://www.java.com/
+MySQL v8 (or higher) - https://www.mysql.com/
 ```
 
 ### Installing
