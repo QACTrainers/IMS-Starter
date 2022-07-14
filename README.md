@@ -75,6 +75,9 @@ Add additional notes about how to deploy this on a live system
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [Git](https://git-scm.com/) - Source Control Management
+* [GitHub](https://github.com/) - Remote Source Control Management
+* [Intellij IDEA](https://www.jetbrains.com/idea/) - Intergrated Development Environment
 
 ## Versioning
 
