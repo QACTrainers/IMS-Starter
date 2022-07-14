@@ -3,8 +3,12 @@ Coverage: 34%
 
 A simple Java CRUD command line project which allows a user to manage customers, items and orders stored in a MySQL database.
 
+<img width="349" alt="IMS" src="https://user-images.githubusercontent.com/66824231/178939575-f682941b-9578-496e-b245-2e006fa2ad29.png">
+
 ## View my Trello Board
 https://trello.com/b/14cXJsES/ims
+
+<img width="1146" alt="Trello" src="https://user-images.githubusercontent.com/66824231/178939806-bf6e1e7b-91c2-44d1-84cf-e69ec2ec5a47.png">
 
 ## Getting Started
 
@@ -15,7 +19,8 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Give examples
+Java v11 (or higher) - https://www.java.com/
+MySQL v8 (or higher) - https://www.mysql.com/
 ```
 
 ### Installing
@@ -70,6 +75,9 @@ Add additional notes about how to deploy this on a live system
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [Git](https://git-scm.com/) - Source Control Management
+* [GitHub](https://github.com/) - Remote Source Control Management
+* [Intellij IDEA](https://www.jetbrains.com/idea/) - Intergrated Development Environment
 
 ## Versioning
 
@@ -78,6 +86,7 @@ We use [SemVer](http://semver.org/) for versioning.
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Ian Petts** - *Project work*
 
 ## License
 
@@ -88,5 +97,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* QA - Ed Reynolds & Jordan Harrison
