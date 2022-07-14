@@ -70,15 +70,15 @@ public class ItemControllerTest {
 
 	@Test
 	public void TestDelete() {
-		final Long ID = 1L;
+		final Long id = 1L;
 
-		Mockito.when(utils.getLong()).thenReturn(ID);
-		Mockito.when(DAO.delete(ID)).thenReturn(0);
+		Mockito.when(utils.getLong()).thenReturn(id);
+		Mockito.when(DAO.delete(id)).thenReturn(0);
 
 		assertEquals(0, controller.delete());
 
 		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(DAO, Mockito.times(1)).delete(ID);
+		Mockito.verify(DAO, Mockito.times(1)).delete(id);
 	}
 
 	@Test

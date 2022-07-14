@@ -23,10 +23,10 @@ public class OrderControllerTest {
 	private Utils utils;
 
 	@Mock
-	private OrderDAO DAO;
+	private OrderDAO orderDAO;
 
 	@Mock
-	private Order_ItemDAO OI_DAO;
+	private Order_ItemDAO order_itemDAO;
 
 	@InjectMocks
 	private OrderController controller;
@@ -37,7 +37,7 @@ public class OrderControllerTest {
 		final Order read = new Order(1l, 1l);
 		orders.add(read);
 
-		Mockito.when(DAO.readAll()).thenReturn(orders);
+		Mockito.when(orderDAO.readAll()).thenReturn(orders);
 
 		assertEquals(orders, controller.readAll());
 	}
@@ -50,32 +50,32 @@ public class OrderControllerTest {
 
 		assertEquals(0, controller.delete());
 
-		Mockito.verify(DAO, Mockito.times(1)).delete(ID);
+		Mockito.verify(orderDAO, Mockito.times(1)).delete(ID);
 	}
 
 	@Test
 	public void TestCreate() {
 		final Long CustID = 2L;
 		final Long ItemID = 1L;
-		final Order order = new Order(CustID);
+		final Order order = new Order(CustID, ItemID);
 
 		Mockito.when(utils.getLong()).thenReturn(CustID, ItemID, ItemID);
-		Mockito.when(DAO.create(order)).thenReturn(order);
+		Mockito.when(orderDAO.create(order)).thenReturn(order);
 		Mockito.when(utils.getString()).thenReturn("y", "sd", "n");
-		Mockito.when(DAO.readLatest()).thenReturn(order);
+		Mockito.when(orderDAO.readLatest()).thenReturn(order);
 
 		assertEquals(order, controller.create());
 	}
 
 	@Test
 	public void TestUpdate() {
-		final Long OrderID = 1L;
-		final Long ItemID = 1L;
-		final Long CustomerID = 1L;
-		final Order order = new Order(OrderID, ItemID);
+		final Long order_id = 1L;
+		final Long item_id = 1L;
+		final Long customer_id = 1L;
+		final Order order = new Order(order_id, item_id);
 
-		Mockito.when(utils.getLong()).thenReturn(OrderID, ItemID, ItemID, CustomerID);
-		Mockito.when(DAO.readSingle(OrderID)).thenReturn(order);
+		Mockito.when(utils.getLong()).thenReturn(order_id, item_id, item_id, customer_id);
+		Mockito.when(orderDAO.read(order_id)).thenReturn(order);
 		Mockito.when(utils.getString()).thenReturn("ADD", "REMOVE", "CUSTOMER", "sdfg", "RETURN");
 
 		assertEquals(null, controller.update());
