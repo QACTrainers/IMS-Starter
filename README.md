@@ -15,7 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Give examples
+Java v11 (or higher)
+MySQL v8 (or higher)
 ```
 
 ### Installing
@@ -78,6 +79,7 @@ We use [SemVer](http://semver.org/) for versioning.
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Ian Petts** - *Project work*
 
 ## License
 
@@ -89,4 +91,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 * Hat tip to anyone whose code was used
 * Inspiration
-* etc
+* QA - Ed Reynolds & Jordan Harrison
