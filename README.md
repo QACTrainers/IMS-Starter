@@ -3,8 +3,12 @@ Coverage: 34%
 
 A simple Java CRUD command line project which allows a user to manage customers, items and orders stored in a MySQL database.
 
+<img width="349" alt="IMS" src="https://user-images.githubusercontent.com/66824231/178939575-f682941b-9578-496e-b245-2e006fa2ad29.png">
+
 ## View my Trello Board
 https://trello.com/b/14cXJsES/ims
+
+<img width="1146" alt="Trello" src="https://user-images.githubusercontent.com/66824231/178939806-bf6e1e7b-91c2-44d1-84cf-e69ec2ec5a47.png">
 
 ## Getting Started
 
