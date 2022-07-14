@@ -26,7 +26,6 @@ public class ItemDAO implements Dao<Item> {
 		return new Item(item_id, item_name, item_price);
 	}
 
-	@Override
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
@@ -43,11 +42,10 @@ public class ItemDAO implements Dao<Item> {
 		return new ArrayList<>();
 	}
 
-	@Override
 	public Item read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE item_id = ?");) {
-			statement.setLong(1, id);
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM items WHERE item_id = " + id);) {
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
 				return modelFromResultSet(resultSet);
@@ -73,13 +71,11 @@ public class ItemDAO implements Dao<Item> {
 		return null;
 	}
 
-	@Override
 	public Item create(Item t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO items(item_name, item_price) VALUES (?, ?)");) {
-			statement.setString(1, t.getItem_name());
-			statement.setDouble(2, t.getItem_price());
+						.prepareStatement("INSERT INTO items(item_name, item_price) VALUES ('" + t.getItem_name()
+								+ "', '" + t.getItem_price() + "')");) {
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -90,7 +86,6 @@ public class ItemDAO implements Dao<Item> {
 		return null;
 	}
 
-	@Override
 	public Item update(Item t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
@@ -107,12 +102,20 @@ public class ItemDAO implements Dao<Item> {
 		return null;
 	}
 
-	@Override
 	public int delete(long id) {
+		ArrayList<Long> ids = new ArrayList<Long>();
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE item_id = ?");) {
-			statement.setLong(1, id);
-			return statement.executeUpdate();
+				Statement statement = connection.createStatement();) {
+			ResultSet resultSet = statement.executeQuery(
+					"SELECT fk_order_id FROM order_items WHERE fk_item_id = " + id + " GROUP BY fk_order_id;");
+			while (resultSet.next()) {
+				ids.add(resultSet.getLong("fk_order_id"));
+			}
+
+			statement.executeUpdate("DELETE FROM order_items where fk_item_id =" + id + ";");
+			for (Long i : ids) {
+				statement.executeUpdate("DELETE FROM items WHERE item_id =" + i + ";");
+			}
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

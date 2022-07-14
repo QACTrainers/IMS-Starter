@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 	`item_name` VARCHAR (55) NOT NULL,
 	`unit_quantity` INT NOT NULL DEFAULT 1,
 	`fk_order_id` INT NOT NULL,
-	`fk2_item_id` INT NOT NULL,
-	`fk2_customer_id` INT NOT NULL,
+	`fk_item_id` INT NOT NULL,
+	`fk_customer_id` INT NOT NULL,
 	PRIMARY KEY (`order_item_id`),
 	OREIGN KEY (`fk_order_id`) REFERENCES `orders` (`order_id`),
-	FOREIGN KEY (`fk2_item_id`) REFERENCES `items` (`item_id`),
-	FOREIGN KEY (`fk2_customer_id`) REFERENCES `customers` (`id`)
+	FOREIGN KEY (`fk_item_id`) REFERENCES `items` (`item_id`),
+	FOREIGN KEY (`fk_customer_id`) REFERENCES `customers` (`id`)
 	);
