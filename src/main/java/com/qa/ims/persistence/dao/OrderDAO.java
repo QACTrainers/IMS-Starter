@@ -133,4 +133,23 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+
+	// to be moved to order_itemDAO later
+	public double totalPrice(long id) throws SQLException {
+		double total = 0;
+		try (Connection connection = DBUtils.getInstance().getConnection();
+
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement
+						.executeQuery("SELECT unit_price FROM order_items WHERE customer_id = " + "id");) {
+			List<Order> price = new ArrayList<>();
+
+			for (double i = 0; i < price.size(); i++) {
+
+				total += i;
+			}
+			return total;
+		}
+
+	}
 }

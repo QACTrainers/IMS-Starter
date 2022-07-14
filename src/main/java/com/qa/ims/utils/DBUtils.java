@@ -57,6 +57,7 @@ public class DBUtils {
 		Connection con = DriverManager.getConnection(instance.dbUrl, instance.dbUser, instance.dbPassword);
 		ScriptRunner sr = new ScriptRunner(con);
 		Reader reader = new BufferedReader(new FileReader("src/main/resources/sql-schema.sql"));
+		sr.setLogWriter(null);
 		sr.runScript(reader);
 
 	}
