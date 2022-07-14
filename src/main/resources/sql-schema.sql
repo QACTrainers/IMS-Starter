@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 	`fk_customer_id` INT NOT NULL,
 	`fk_item_id` INT NOT NULL,
 	PRIMARY KEY (`order_id`),
-	CONSTRAINT `fk_customer_id` FOREIGN KEY (`fk_customer_id`) REFERENCES customers (`id`),
-	CONSTRAINT `fk_item_id` FOREIGN KEY (`fk_item_id`) REFERENCES items (`item_id`)
+	FOREIGN KEY (`fk_customer_id`) REFERENCES customers (`id`),
+	FOREIGN KEY (`fk_item_id`) REFERENCES items (`item_id`)
 	);
 	
 CREATE TABLE IF NOT EXISTS `order_items` (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 	`fk2_item_id` INT NOT NULL,
 	`fk2_customer_id` INT NOT NULL,
 	PRIMARY KEY (`order_item_id`),
-	CONSTRAINT `fk_order_id` FOREIGN KEY (`fk_order_id`) REFERENCES `orders` (`order_id`),
-	CONSTRAINT `fk2_item_id` FOREIGN KEY (`fk2_item_id`) REFERENCES `items` (`item_id`),
-	CONSTRAINT `fk2_customer_id` FOREIGN KEY (`fk2_customer_id`) REFERENCES `customers` (`id`)
+	OREIGN KEY (`fk_order_id`) REFERENCES `orders` (`order_id`),
+	FOREIGN KEY (`fk2_item_id`) REFERENCES `items` (`item_id`),
+	FOREIGN KEY (`fk2_customer_id`) REFERENCES `customers` (`id`)
 	);

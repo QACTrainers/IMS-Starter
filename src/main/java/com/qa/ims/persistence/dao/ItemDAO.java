@@ -121,9 +121,4 @@ public class ItemDAO implements Dao<Item> {
 
 	}
 
-	// method purely here to test merging with git
-	public void testMerge() {
-		System.out.println("test");
-	}
-
 }
