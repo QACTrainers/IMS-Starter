@@ -71,4 +71,18 @@ public class Utils {
 		return doubleInput;
 	}
 
+	public Integer getInteger() {
+		String input = null;
+		Integer integerInput = null;
+		do{
+			try {
+				input = getString();
+				integerInput = Integer.parseInt(input);
+			} catch (NumberFormatException nfe) {
+				LOGGER.info("error - Please enter a number");
+			}
+		} while (integerInput == null);
+		return integerInput;
+	}
+
 }

@@ -2,6 +2,9 @@ package com.qa.ims.persistence.domain;
 
 //import java.util.Date;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -14,6 +17,16 @@ public class Order {
 
     private Long total;
 
+    private List<OrderItems> orderItems;
+
+
+    public Order( Long orderID, Long fkCustomerID, Date placed, Long total, List<OrderItems> orderItems) {
+        this.orderID = orderID;
+        this.fkCustomerID =fkCustomerID;
+        this.placed = placed;
+        this.total = total;
+        this.orderItems = orderItems;
+    }
     public Order(Long orderID, Long fkCustomerID, Date placed, Long total) {
         this.orderID = orderID;
         this.fkCustomerID =fkCustomerID;
@@ -59,9 +72,23 @@ public class Order {
         this.total = total;
     }
 
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+    }
+
     @Override
     public String toString() {
-        return "orderID=" + orderID + ", fkCustomerID=" + fkCustomerID + ", placed=" + placed + ", total=" + total;
+        return "Order{" +
+                "orderID=" + orderID +
+                ", fkCustomerID=" + fkCustomerID +
+                ", placed=" + placed +
+                ", total=" + total +
+                ", orderItems=" + orderItems +
+                '}';
     }
 
     @Override
@@ -69,11 +96,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(orderID, order.orderID) && Objects.equals(fkCustomerID, order.fkCustomerID) && Objects.equals(placed, order.placed) && Objects.equals(total, order.total);
+        return Objects.equals(orderID, order.orderID) && Objects.equals(fkCustomerID, order.fkCustomerID) && Objects.equals(placed, order.placed) && Objects.equals(total, order.total) && Objects.equals(orderItems, order.orderItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderID, fkCustomerID, placed, total);
+        return Objects.hash(orderID, fkCustomerID, placed, total, orderItems);
     }
 }
