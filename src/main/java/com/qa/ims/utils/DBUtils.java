@@ -52,7 +52,6 @@ public class DBUtils {
 		return modified;
 	}
 
-	// method to automatically create the tables required for the database
 	public static void createTables() throws SQLException, FileNotFoundException {
 		Connection con = DriverManager.getConnection(instance.dbUrl, instance.dbUser, instance.dbPassword);
 		ScriptRunner sr = new ScriptRunner(con);

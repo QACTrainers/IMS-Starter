@@ -40,7 +40,7 @@ public class IMS {
 	public void imsSystem() throws FileNotFoundException, SQLException {
 		LOGGER.info("Welcome to the Inventory Management System!");
 		DBUtils.connect();
-		DBUtils.createTables();
+
 		Domain domain = null;
 		do {
 			LOGGER.info("Which entity would you like to use?");

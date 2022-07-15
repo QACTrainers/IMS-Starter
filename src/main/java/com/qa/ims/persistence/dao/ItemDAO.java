@@ -106,13 +106,13 @@ public class ItemDAO implements Dao<Item> {
 		ArrayList<Long> ids = new ArrayList<Long>();
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			ResultSet resultSet = statement.executeQuery(
-					"SELECT fk_order_id FROM order_items WHERE fk_item_id = " + id + " GROUP BY fk_order_id;");
+			ResultSet resultSet = statement
+					.executeQuery("SELECT fk_order_id FROM order_items WHERE item_id = " + id + " GROUP BY order_id;");
 			while (resultSet.next()) {
-				ids.add(resultSet.getLong("fk_order_id"));
+				ids.add(resultSet.getLong("order_id"));
 			}
 
-			statement.executeUpdate("DELETE FROM order_items where fk_item_id =" + id + ";");
+			statement.executeUpdate("DELETE FROM order_items where item_id =" + id + ";");
 			for (Long i : ids) {
 				statement.executeUpdate("DELETE FROM items WHERE item_id =" + i + ";");
 			}
