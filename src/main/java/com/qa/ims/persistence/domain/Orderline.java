@@ -12,6 +12,16 @@ public class Orderline {
 		this.setQuantity(quantity);
 	}
 
+	public Orderline(Long fk_orderID, Long quantity) {
+		this.setFk_orderID(fk_orderID);
+		this.setQuantity(quantity);
+	}
+
+	@Override
+	public String toString() {
+		return "fk_orderID=" + fk_orderID + " fk_itemID=" + fk_itemID + " quantity=" + quantity;
+	}
+
 	public Long getFk_orderID() {
 		return fk_orderID;
 	}

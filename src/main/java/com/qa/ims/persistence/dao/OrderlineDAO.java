@@ -50,15 +50,27 @@ public class OrderlineDAO implements Dao<Orderline> {
 	}
 
 	@Override
-	public Orderline read(Long id) {
-		// TODO Auto-generated method stub
+	public Orderline read(Long fk_orderID) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM Orderline WHERE fk_orderID = ?");) {
+			statement.setLong(1, fk_orderID);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return modelFromResultSet(resultSet);
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
 	public Orderline create(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("INSERT INTO Orderline VALUES (?, ?, ?)");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO Orderline (fk_orderID, fk_itemID, quantity) VALUES (?, ?, ?)");) {
 			statement.setLong(1, orderline.getFk_orderID());
 			statement.setLong(2, orderline.getFk_itemID());
 			statement.setLong(3, orderline.getQuantity());
@@ -75,10 +87,9 @@ public class OrderlineDAO implements Dao<Orderline> {
 	public Orderline update(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Orderline SET fk_itemID = ?, quantity = ? WHERE fk_orderID = ?");) {
-			statement.setLong(1, orderline.getFk_itemID());
-			statement.setLong(2, orderline.getQuantity());
-			statement.setLong(3, orderline.getFk_orderID());
+						.prepareStatement("UPDATE Orderline SET quantity = ? WHERE fk_orderID = ?");) {
+			statement.setLong(1, orderline.getQuantity());
+			statement.setLong(2, orderline.getFk_orderID());
 			statement.executeUpdate();
 			return read(orderline.getFk_orderID());
 		} catch (Exception e) {

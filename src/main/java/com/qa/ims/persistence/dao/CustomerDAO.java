@@ -35,12 +35,12 @@ public class CustomerDAO implements Dao<Customer> {
 	public List<Customer> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");) {
-			List<Customer> customers = new ArrayList<>();
-			if (resultSet.next()) {
-				customers.add(modelFromResultSet(resultSet));
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM Customer");) {
+			List<Customer> customer = new ArrayList<>();
+			while (resultSet.next()) {
+				customer.add(modelFromResultSet(resultSet));
 			}
-			return customers;
+			return customer;
 		} catch (SQLException e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

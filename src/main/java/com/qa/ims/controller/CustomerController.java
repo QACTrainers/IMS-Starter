@@ -31,11 +31,11 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public List<Customer> readAll() {
-		List<Customer> customers = customerDAO.readAll();
-		for (Customer customer : customers) {
-			LOGGER.info(customer);
+		List<Customer> customer = customerDAO.readAll();
+		for (Customer customer1 : customer) {
+			LOGGER.info(customer1);
 		}
-		return customers;
+		return customer;
 	}
 
 	/**
