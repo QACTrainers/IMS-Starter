@@ -2,9 +2,13 @@ package com.qa.ims.controllers;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qa.ims.persistence.domain.Order;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -48,8 +52,10 @@ public class ItemControllerTest {
         final Item created = new Item(ITEM_NAME, ITEM_VALUE, QUANTITY, COLOUR);
 
         Mockito.when(utils.getString()).thenReturn(ITEM_NAME);
-        Mockito.when(utils.getLong()).thenReturn(ITEM_VALUE, QUANTITY);
+        Mockito.when(utils.getLong()).thenReturn(ITEM_VALUE);
+        Mockito.when(utils.getLong()).thenReturn(QUANTITY);
         Mockito.when(utils.getString()).thenReturn(COLOUR);
+
         Mockito.when(dao.create(created)).thenReturn(created);
 
         assertEquals(created, controller.create());

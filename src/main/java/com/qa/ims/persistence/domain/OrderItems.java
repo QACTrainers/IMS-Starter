@@ -78,10 +78,15 @@ public class OrderItems {
     }
 
 
-
     @Override
     public String toString() {
-        return "orderItemID=" + orderItemID + ", fkOrderID=" + fkOrderID + ", fkItemID=" + fkItemID + ", quantity=" + quantity + ", total=" + total;
+        return "OrderItems{" +
+                "orderItemID=" + orderItemID +
+                ", fkOrderID=" + fkOrderID +
+                ", fkItemID=" + fkItemID +
+                ", quantity=" + quantity +
+                ", total=" + total +
+                '}';
     }
 
     @Override

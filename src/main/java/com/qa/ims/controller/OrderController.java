@@ -54,8 +54,10 @@ public class OrderController implements CrudController<Order> {
         Long fkCustomerID = utils.getLong();
         LOGGER.info("Please enter the date the order was placed");
         Date placed = utils.getDate();
-        Order order = orderDAO.create(new Order(fkCustomerID, placed, 0L));
-
+        Long total = 0L;
+        System.out.println("hellodiho");
+        Order order = orderDAO.create(new Order(fkCustomerID, placed, total));
+        System.out.println(order);
         LOGGER.info("order created, to add items to the order, update created order.");
         return order;
     }

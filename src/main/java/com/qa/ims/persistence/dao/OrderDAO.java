@@ -55,6 +55,7 @@ public class OrderDAO implements Dao<Order> {
 
     @Override
     public Order create(Order order) {
+        System.out.println("helloha");
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement
                      ("INSERT INTO orders(fk_customer_ID, placed, total) VALUES (?, ?, ?)");) {
@@ -70,7 +71,8 @@ public class OrderDAO implements Dao<Order> {
         return null;
     }
 
-    private Order readLatest() {
+    public Order readLatest() {
+
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_ID DESC LIMIT 1");) {

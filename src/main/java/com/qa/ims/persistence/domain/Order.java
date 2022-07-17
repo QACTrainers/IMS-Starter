@@ -82,14 +82,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderID=" + orderID +
-                ", fkCustomerID=" + fkCustomerID +
-                ", placed=" + placed +
-                ", total=" + total +
-                ", orderItems=" + orderItems +
-                '}';
+        return "orderID=" + orderID + ", fkCustomerID=" + fkCustomerID + ", placed=" + placed + ", total=" + total + ", orderItems=" + orderItems;
     }
+
 
     @Override
     public boolean equals(Object o) {
