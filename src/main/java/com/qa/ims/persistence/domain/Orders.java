@@ -15,12 +15,7 @@ public class Orders {
 
 	}
 
-	public Orders(Long customerID, String date) {
-		this.setCustomerID(customerID);
-		this.setDate(date);
-	}
-
-	public Orders(Long customerID, Long fk_itemID) { // dont need date to update orders
+	public Orders(Long orderID, Long customerID, Long fk_itemID) { // dont need date to update orders
 		this.setCustomerID(customerID);
 		this.setFk_itemID(fk_itemID);
 	}
@@ -59,7 +54,7 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "orderID = " + orderID + " customerID = " + customerID + " date = " + date + " itemID = " + fk_itemID;
+		return "orderID=" + orderID + ", customerID=" + customerID + ", date=" + date + ", fk_itemID=" + fk_itemID;
 	}
 
 	@Override

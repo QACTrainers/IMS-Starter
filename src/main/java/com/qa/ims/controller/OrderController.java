@@ -51,7 +51,9 @@ public class OrderController implements CrudController<Orders> {
 		Long customerID = utils.getLong();
 		LOGGER.info("Please enter the date of the order in the format YYYY-MM-DD");
 		String date = utils.getString();
-		Orders order = ordersDAO.update(new Orders(orderID, customerID, date));
+		LOGGER.info("Please enter item id of the product being ordered");
+		Long fk_itemID = utils.getLong();
+		Orders order = ordersDAO.update(new Orders(orderID, customerID, date, fk_itemID));
 		LOGGER.info("Order Updated");
 		return order;
 	}

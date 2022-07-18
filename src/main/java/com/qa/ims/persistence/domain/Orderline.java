@@ -16,20 +16,23 @@ public class Orderline {
 		this.setPrice(price);
 	}
 
-	public Orderline(Long fk_orderID, Long fk_itemID, Long quantity) {
+	public Orderline(Long fk_orderID, Long fk_itemID, Long quantity, Double price) {
 		this.setFk_orderID(fk_orderID);
 		this.setFk_itemID(fk_itemID);
 		this.setQuantity(quantity);
+		this.setPrice(price);
 	}
 
-	public Orderline(Long fk_orderID, Long quantity) {
-		this.setFk_orderID(fk_orderID);
-		this.setQuantity(quantity);
-	}
+//
+//	public Orderline(Long fk_orderID, Long quantity) {
+//		this.setFk_orderID(fk_orderID);
+//		this.setQuantity(quantity);
+//	}
 
 	@Override
 	public String toString() {
-		return "fk_orderID=" + fk_orderID + " fk_itemID=" + fk_itemID + " quantity=" + quantity;
+		return "orderlineID=" + orderlineID + ", fk_orderID=" + fk_orderID + ", fk_itemID=" + fk_itemID + ", quantity="
+				+ quantity + ", price=" + price;
 	}
 
 	public Long getOrderlineID() {
