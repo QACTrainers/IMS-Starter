@@ -24,7 +24,7 @@ public class OrderlineDAO implements Dao<Orderline> {
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM Orderline");) {
 			List<Orderline> orderlines = new ArrayList<>();
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				orderlines.add(modelFromResultSet(resultSet));
 			}
 			return orderlines;
@@ -39,7 +39,7 @@ public class OrderlineDAO implements Dao<Orderline> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM Orderline ORDER BY fk_orderID DESC LIMIT 1");) {
+						.executeQuery("SELECT * FROM Orderline ORDER BY orderlineID DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -50,11 +50,11 @@ public class OrderlineDAO implements Dao<Orderline> {
 	}
 
 	@Override
-	public Orderline read(Long fk_orderID) {
+	public Orderline read(Long orderlineID) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("SELECT * FROM Orderline WHERE fk_orderID = ?");) {
-			statement.setLong(1, fk_orderID);
+						.prepareStatement("SELECT * FROM Orderline WHERE orderlineID = ?");) {
+			statement.setLong(1, orderlineID);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
 				return modelFromResultSet(resultSet);
@@ -70,10 +70,11 @@ public class OrderlineDAO implements Dao<Orderline> {
 	public Orderline create(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO Orderline (fk_orderID, fk_itemID, quantity) VALUES (?, ?, ?)");) {
+						"INSERT INTO Orderline (fk_orderID, fk_itemID, quantity, price) VALUES (?, ?, ?, ?)");) {
 			statement.setLong(1, orderline.getFk_orderID());
 			statement.setLong(2, orderline.getFk_itemID());
 			statement.setLong(3, orderline.getQuantity());
+			statement.setDouble(4, orderline.getPrice());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -86,12 +87,15 @@ public class OrderlineDAO implements Dao<Orderline> {
 	@Override
 	public Orderline update(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Orderline SET quantity = ? WHERE fk_orderID = ?");) {
-			statement.setLong(1, orderline.getQuantity());
-			statement.setLong(2, orderline.getFk_orderID());
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE Orderline SET fk_orderID = ?, fk_item ID = ? quantity = ? , price = ?, WHERE orderlineID = ?");) {
+			statement.setLong(1, orderline.getFk_orderID());
+			statement.setLong(2, orderline.getFk_itemID());
+			statement.setLong(3, orderline.getQuantity());
+			statement.setDouble(4, orderline.getPrice());
+			statement.setLong(5, orderline.getOrderlineID());
 			statement.executeUpdate();
-			return read(orderline.getFk_orderID());
+			return read(orderline.getOrderlineID());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -100,11 +104,11 @@ public class OrderlineDAO implements Dao<Orderline> {
 	}
 
 	@Override
-	public int delete(long fk_orderID) {
+	public int delete(long orderlineID) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("DELETE FROM Orderline WHERE fk_orderID = ?");) {
-			statement.setLong(1, fk_orderID);
+						.prepareStatement("DELETE FROM Orderline WHERE orderlineID = ?");) {
+			statement.setLong(1, orderlineID);
 			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -115,10 +119,12 @@ public class OrderlineDAO implements Dao<Orderline> {
 
 	@Override
 	public Orderline modelFromResultSet(ResultSet resultSet) throws SQLException {
+		Long orderlineID = resultSet.getLong("orderlineID");
 		Long fk_orderID = resultSet.getLong("fk_orderID");
 		Long fk_itemID = resultSet.getLong("fk_itemID");
 		Long quantity = resultSet.getLong("quantity");
-		return new Orderline(fk_orderID, fk_itemID, quantity);
+		Double price = resultSet.getDouble("price");
+		return new Orderline(orderlineID, fk_orderID, fk_itemID, quantity, price);
 	}
 
 }
