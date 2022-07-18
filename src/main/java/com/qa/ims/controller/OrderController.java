@@ -16,6 +16,12 @@ public class OrderController implements CrudController<Orders> {
 	private OrdersDAO ordersDAO;
 	private Utils utils;
 
+	public OrderController(OrdersDAO orderDAO, Utils utils) {
+		super();
+		this.ordersDAO = orderDAO;
+		this.utils = utils;
+	}
+
 	@Override
 	public List<Orders> readAll() { // view all orders in the system
 		List<Orders> orders = ordersDAO.readAll();
@@ -27,33 +33,27 @@ public class OrderController implements CrudController<Orders> {
 
 	@Override
 	public Orders create() { // create an order in the system
-//
-//		boolean addItems = false;
-//
-//		LOGGER.info("Please a customer ID");
-//		Long customerID = utils.getLong();
-//		LOGGER.info("Please enter the date in the format 'YYYY-MM-DD' ");
-//		String date = utils.getString();
-//		Orders order = ordersDAO.create(new Orders(customerID, date));
-//		LOGGER.info("Order created");
-//		// return ordersDAO.read(order.getOrderID())
-//		LOGGER.info(ordersDAO.read(order.getOrderID()));
-//		LOGGER.info("Would you like to add any items to the order");
-		return null;
+		LOGGER.info("Please a customer ID");
+		Long customerID = utils.getLong();
+		LOGGER.info("Please enter the date in the format 'YYYY-MM-DD' ");
+		String date = utils.getString();
+		LOGGER.info("Please enter an item ID to add to the order");
+		Long fk_itemID = utils.getLong();
+		Orders order = ordersDAO.create(new Orders(customerID, date, fk_itemID));
+		LOGGER.info("Order created");
+		return order;
 //
 	}
 
 	@Override
-	public Orders update() { // add an item to an order using the orderline table
+	public Orders update() { // change the item ID from an order (how to reflect this is orderline???)
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long orderID = utils.getLong();
 		LOGGER.info("Please enter the customer ID");
 		Long customerID = utils.getLong();
-		LOGGER.info("Please enter the date of the order in the format YYYY-MM-DD");
-		String date = utils.getString();
 		LOGGER.info("Please enter item id of the product being ordered");
 		Long fk_itemID = utils.getLong();
-		Orders order = ordersDAO.update(new Orders(orderID, customerID, date, fk_itemID));
+		Orders order = ordersDAO.update(new Orders(orderID, customerID, fk_itemID));
 		LOGGER.info("Order Updated");
 		return order;
 	}

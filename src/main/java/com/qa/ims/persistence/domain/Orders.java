@@ -20,6 +20,13 @@ public class Orders {
 		this.setFk_itemID(fk_itemID);
 	}
 
+	public Orders(Long customerID, String date, Long fk_itemID) {
+		this.setCustomerID(customerID);
+		this.setDate(date);
+		this.setFk_itemID(fk_itemID);
+
+	}
+
 	public Long getOrderID() {
 		return orderID;
 	}

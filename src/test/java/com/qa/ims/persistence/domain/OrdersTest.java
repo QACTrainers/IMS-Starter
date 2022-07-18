@@ -34,6 +34,15 @@ public class OrdersTest {
 	}
 
 	@Test
+	public void testCustomerConstructor3() {
+		Orders test = new Orders(1L, "2022-03-04", 1L);
+		assertEquals(Long.valueOf(1), test.getCustomerID());
+		assertEquals("2022-03-04", test.getDate());
+		assertEquals(Long.valueOf(1), test.getFk_itemID());
+
+	}
+
+	@Test
 	public void testToString() {
 		Orders test = new Orders(1L, 3L, "2022-04-04", 1L);
 		String expected = "orderID=" + test.getOrderID() + ", customerID=" + test.getCustomerID() + ", date="
