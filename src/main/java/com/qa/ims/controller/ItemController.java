@@ -45,8 +45,7 @@ public class ItemController implements CrudController<Item>{
         LOGGER.info("please enter the quantity of the item");
         Long quantity = utils.getLong();
         LOGGER.info("Please enter the colour of the item");
-        String colour = utils.getString();
-        Item item = itemDOA.create(new Item(itemName, itemValue, quantity, colour));
+        String colour = utils.getString();Item item = itemDOA.create(new Item(itemName, itemValue, quantity, colour));
         LOGGER.info("Item created");
         return item;
     }

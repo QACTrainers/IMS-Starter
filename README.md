@@ -1,7 +1,7 @@
 Coverage: 34%
-# Project Title
+# IMS
 
-The project idk
+an inventory management system tracking orders, items and customers
 
 ## Getting Started
 
@@ -37,13 +37,14 @@ End with an example of getting some data out of the system or using it for a lit
 ## Running the tests
 
 Explain how to run the automated tests for this system. Break down into which tests and what they do
+Testing for this program has been done using JUnit and Mockito, the DAO and Controller classes have been tested along with the Customer, Item, Object and ObjectItems classes
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+unit testing is used to test small portions of the code needed to be tested, Such tests have taken place in this project
 
 ```
-Give an example
+Test to check getter methods return values 
 ```
 
 ### Integration Tests 
@@ -85,6 +86,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Ed Reynolds for teaching us how to use Git, SQL and basic java; being present when unwell to teach us and help resolve testing errors in my project
+* Jordan Harrison for teaching us OOP principles, helping me with my testing errors and access unreachable git files
+* The Whole cohort for advising and morally supporting each other through this project. 
