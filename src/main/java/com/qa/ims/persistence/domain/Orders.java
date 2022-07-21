@@ -3,28 +3,34 @@ package com.qa.ims.persistence.domain;
 public class Orders {
 
 	private Long orderID;
-	private Long customerID;
-	private String date;
+	private Long fk_id;
 	private Long fk_itemID;
+	private Long quantity;
 
-	public Orders(Long orderID, Long customerID, String date, Long fk_itemID) {
+	public Orders(Long orderID, Long fk_id, Long fk_itemID, Long quantity) {
 		this.setOrderID(orderID);
-		this.setCustomerID(customerID);
-		this.setDate(date);
+		this.setFk_id(fk_id);
 		this.setFk_itemID(fk_itemID);
-
+		this.setQuantity(quantity);
 	}
 
-	public Orders(Long orderID, Long customerID, Long fk_itemID) { // dont need date to update orders
-		this.setCustomerID(customerID);
+	public Orders(Long fk_id, Long fk_itemID, Long quantity) {
+		this.setFk_id(fk_id);
 		this.setFk_itemID(fk_itemID);
+		this.setQuantity(quantity);
 	}
 
-	public Orders(Long customerID, String date, Long fk_itemID) {
-		this.setCustomerID(customerID);
-		this.setDate(date);
-		this.setFk_itemID(fk_itemID);
+	@Override
+	public String toString() {
+		return "OrderID=" + orderID + ", fk_id=" + fk_id + ", fk_itemID=" + fk_itemID + ", quantity=" + quantity;
+	}
 
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
 	}
 
 	public Long getOrderID() {
@@ -35,20 +41,12 @@ public class Orders {
 		this.orderID = orderID;
 	}
 
-	public Long getCustomerID() {
-		return customerID;
+	public Long getFk_id() {
+		return fk_id;
 	}
 
-	public void setCustomerID(Long customerID) {
-		this.customerID = customerID;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
+	public void setFk_id(Long fk_id) {
+		this.fk_id = fk_id;
 	}
 
 	public Long getFk_itemID() {
@@ -60,17 +58,11 @@ public class Orders {
 	}
 
 	@Override
-	public String toString() {
-		return "orderID=" + orderID + ", customerID=" + customerID + ", date=" + date + ", fk_itemID=" + fk_itemID;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((orderID == null) ? 0 : orderID.hashCode());
-		result = prime * result + ((customerID == null) ? 0 : customerID.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((fk_id == null) ? 0 : fk_id.hashCode());
 		result = prime * result + ((fk_itemID == null) ? 0 : fk_itemID.hashCode());
 		return result;
 	}
@@ -89,20 +81,20 @@ public class Orders {
 				return false;
 		} else if (!orderID.equals(other.orderID))
 			return false;
-		if (customerID == null) {
-			if (other.customerID != null)
+		if (fk_id == null) {
+			if (other.fk_id != null)
 				return false;
-		} else if (!customerID.equals(other.customerID))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
+		} else if (!fk_id.equals(other.fk_id))
 			return false;
 		if (fk_itemID == null) {
 			if (other.fk_itemID != null)
 				return false;
 		} else if (!fk_itemID.equals(other.fk_itemID))
+			return false;
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
 			return false;
 		return true;
 	}

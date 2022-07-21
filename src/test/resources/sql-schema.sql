@@ -28,6 +28,7 @@
 DROP TABLE IF EXISTS `Orderline`;
 
 CREATE TABLE IF NOT EXISTS `Orderline` (
+     orderlineID INT(11) NOT NULL AUTO_INCREMENT,
     `fk_orderID` INT(11) NOT NULL,
     `fk_itemID` INT(11) DEFAULT NULL,
     `quantity` INT(11) DEFAULT NULL

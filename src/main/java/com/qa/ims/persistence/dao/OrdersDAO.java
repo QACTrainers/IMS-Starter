@@ -23,11 +23,11 @@ public class OrdersDAO implements Dao<Orders> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM Orders");) {
-			List<Orders> orders = new ArrayList<>();
+			List<Orders> order = new ArrayList<>();
 			while (resultSet.next()) {
-				orders.add(modelFromResultSet(resultSet));
+				order.add(modelFromResultSet(resultSet));
 			}
-			return orders;
+			return order;
 		} catch (SQLException e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -64,23 +64,22 @@ public class OrdersDAO implements Dao<Orders> {
 		return null;
 	}
 
-//	public Orders readCost(Long orderID) {
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				PreparedStatement statement = connection.prepareStatement(
-//						"SELECT fkOrderID, SUM(price*quantityOrdered) AS TotalPrice FROM orderline o \r\n"
-//								+ "INNER JOIN products p \r\n" + "ON o.fKProductID = p.productID\r\n"
-//								+ "WHERE fkOrderID = ?;\r\n" + "");) {
-//			statement.setLong(1, orderID);
-//			try (ResultSet resultSet = statement.executeQuery();) {
-//				resultSet.next();
-//				return modelFromResultSet(resultSet);
-//			}
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
+	public Orders readCost(Long orderID) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT orderID, SUM(price*quantity) AS TotalPrice FROM orders o \r\n"
+								+ "INNER JOIN item i \r\n" + "ON o.fk_itemID = i.itemID\r\n" + "WHERE orderID = ?;");) {
+			statement.setLong(1, orderID);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return modelFromResultSet(resultSet);
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	/**
 	 * Creates a customer in the database
@@ -92,27 +91,32 @@ public class OrdersDAO implements Dao<Orders> {
 	public Orders create(Orders order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO Orders (customerID, date, fk_itemID) VALUES (?, ?, ?)");) {
-			statement.setLong(1, order.getCustomerID());
-			statement.setString(2, order.getDate());
-			statement.setLong(3, order.getFk_itemID());
+						.prepareStatement("INSERT INTO Orders (fk_id, fk_itemID, quantity) VALUES (?, ?, ?)");) {
+			statement.setLong(1, order.getFk_id());
+			statement.setLong(2, order.getFk_itemID());
+			statement.setLong(3, order.getQuantity());
 			statement.executeUpdate();
+
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
+
+			LOGGER.error(e.getMessage());
 		}
 		return null;
+
 	}
 
 	@Override
 	public Orders update(Orders order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE Orders SET customerID = ?, fk_itemID = ? WHERE orderID = ?");) {
-			statement.setLong(1, order.getCustomerID());
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE Orders SET fk_id = ?, fk_itemID = ?, quantity = ? WHERE orderID = ?");) {
+			statement.setLong(1, order.getFk_id());
 			statement.setLong(2, order.getFk_itemID());
-			statement.setLong(3, order.getOrderID());
+			statement.setLong(3, order.getQuantity());
+			statement.setLong(4, order.getOrderID());
 			statement.executeUpdate();
 			return read(order.getOrderID());
 		} catch (Exception e) {
@@ -138,10 +142,10 @@ public class OrdersDAO implements Dao<Orders> {
 	@Override
 	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderID = resultSet.getLong("orderID");
-		Long customerID = resultSet.getLong("customerID");
-		String date = resultSet.getString("date");
+		Long fk_id = resultSet.getLong("fk_id");
 		Long fk_itemID = resultSet.getLong("fk_itemID");
-		return new Orders(orderID, customerID, date, fk_itemID);
+		Long quantity = resultSet.getLong("quantity");
+		return new Orders(orderID, fk_id, fk_itemID, quantity);
 	}
 
 }

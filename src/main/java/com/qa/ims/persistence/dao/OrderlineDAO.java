@@ -66,6 +66,23 @@ public class OrderlineDAO implements Dao<Orderline> {
 		return null;
 	}
 
+	public Orderline read(Long fk_orderID, Long fk_itemID) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM Orderline WHERE fk_orderID = ? AND fk_itemID = ?");) {
+			statement.setLong(1, fk_orderID);
+			statement.setLong(2, fk_itemID);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return modelFromResultSet2(resultSet);
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 	@Override
 	public Orderline create(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -88,19 +105,18 @@ public class OrderlineDAO implements Dao<Orderline> {
 	public Orderline update(Orderline orderline) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE Orderline SET fk_orderID = ?, fk_item ID = ? quantity = ? , price = ?, WHERE orderlineID = ?");) {
-			statement.setLong(1, orderline.getFk_orderID());
-			statement.setLong(2, orderline.getFk_itemID());
-			statement.setLong(3, orderline.getQuantity());
-			statement.setDouble(4, orderline.getPrice());
-			statement.setLong(5, orderline.getOrderlineID());
+						"UPDATE Orderline SET quantity = ?, price = ? WHERE fk_orderID = ? AND fk_itemID = ?");) {
+			statement.setLong(1, orderline.getQuantity());
+			statement.setDouble(2, orderline.getPrice());
+			statement.setLong(3, orderline.getFk_orderID());
+			statement.setLong(4, orderline.getFk_itemID());
 			statement.executeUpdate();
-			return read(orderline.getOrderlineID());
+			return read(orderline.getFk_orderID(), orderline.getFk_itemID());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return orderline;
 	}
 
 	@Override
@@ -125,6 +141,14 @@ public class OrderlineDAO implements Dao<Orderline> {
 		Long quantity = resultSet.getLong("quantity");
 		Double price = resultSet.getDouble("price");
 		return new Orderline(orderlineID, fk_orderID, fk_itemID, quantity, price);
+	}
+
+	public Orderline modelFromResultSet2(ResultSet resultSet) throws SQLException {
+		Long fk_orderID = resultSet.getLong("fk_orderID");
+		Long fk_itemID = resultSet.getLong("fk_itemID");
+		Long quantity = resultSet.getLong("quantity");
+		Double price = resultSet.getDouble("price");
+		return new Orderline(fk_orderID, fk_itemID, quantity, price);
 	}
 
 }

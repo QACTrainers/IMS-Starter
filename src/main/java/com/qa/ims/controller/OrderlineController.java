@@ -1,7 +1,5 @@
 package com.qa.ims.controller;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,7 +7,7 @@ import com.qa.ims.persistence.dao.OrderlineDAO;
 import com.qa.ims.persistence.domain.Orderline;
 import com.qa.ims.utils.Utils;
 
-public class OrderlineController implements CrudController<Orderline> {
+public class OrderlineController {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -22,16 +20,6 @@ public class OrderlineController implements CrudController<Orderline> {
 		this.utils = utils;
 	}
 
-	@Override
-	public List<Orderline> readAll() {
-		List<Orderline> orderlines = orderlineDAO.readAll();
-		for (Orderline orderline : orderlines) {
-			LOGGER.info(orderlines);
-		}
-		return orderlines;
-	}
-
-	@Override
 	public Orderline create() {
 		LOGGER.info("Please enter the order ID");
 		Long fk_orderID = utils.getLong();
@@ -46,27 +34,6 @@ public class OrderlineController implements CrudController<Orderline> {
 		return orderline;
 	}
 
-	@Override
-	public Orderline update() {
-		LOGGER.info("Please enter the orderline ID number");
-		Long orderlineID = utils.getLong();
-		LOGGER.info("Please enter the ID of the order you want to update");
-		Long fk_orderID = utils.getLong();
-		LOGGER.info("Please add an item id");
-		Long fk_itemID = utils.getLong();
-		LOGGER.info("Please enter the quantity of this item");
-		Long quantity = utils.getLong();
-		LOGGER.info("Please enter the price per unit");
-		Double price = utils.getDouble();
-
-		Orderline orderlineUpdated = orderlineDAO
-				.create(new Orderline(orderlineID, fk_orderID, fk_itemID, quantity, price));
-		LOGGER.info("Item added to order");
-		return orderlineUpdated;
-
-	}
-
-	@Override
 	public int delete() {
 		LOGGER.info("Please enter the id of the orderline you would like to delete");
 		Long orderlineID = utils.getLong();

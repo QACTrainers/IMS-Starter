@@ -7,8 +7,10 @@ import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.dao.OrdersDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -19,6 +21,8 @@ public class IMS {
 
 	private final CustomerController customers;
 	private final ItemController items;
+	private final OrderController orders;
+//	private final CrudController<?> orderline;
 
 	private final Utils utils;
 
@@ -29,6 +33,12 @@ public class IMS {
 
 		final ItemDAO itDAO = new ItemDAO();
 		this.items = new ItemController(itDAO, utils);
+
+		final OrdersDAO orderDAO = new OrdersDAO();
+		this.orders = new OrderController(orderDAO, utils);
+
+//		final OrderlineDAO olDAO = new OrderlineDAO();
+//		this.orderline = (CrudController<?>) new OrderlineController(olDAO, utils);
 
 	}
 
@@ -61,7 +71,11 @@ public class IMS {
 				active = this.items;
 				break;
 			case ORDER:
+				active = this.orders;
 				break;
+//			case ORDERLINE:
+//				active = this.orderline;
+//				break;
 			case STOP:
 				return;
 			default:
