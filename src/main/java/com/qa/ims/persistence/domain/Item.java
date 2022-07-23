@@ -7,16 +7,18 @@ public class Item {
 	private double item_price;
 
 	public Item(long item_id, String item_name, double item_price) {
-		super();
-		this.item_id = item_id;
-		this.item_name = item_name;
-		this.item_price = item_price;
+		this.setItem_id(item_id);
+		this.setItem_name(item_name);
+		this.setItem_price(item_price);
 	}
 
 	public Item(String item_name, double item_price) {
-		super();
-		this.item_name = item_name;
-		this.item_price = item_price;
+		this.setItem_name(item_name);
+		this.setItem_price(item_price);
+	}
+
+	public Item(String item_name) {
+		this.setItem_name(item_name);
 	}
 
 	public long getItem_id() {

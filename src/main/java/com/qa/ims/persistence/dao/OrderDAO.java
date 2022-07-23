@@ -18,6 +18,14 @@ public class OrderDAO implements Dao<Order> {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
+	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
+		Long order_id = resultSet.getLong("order_id");
+		Long item_id = resultSet.getLong("item_id");
+		return new Order(order_id, item_id);
+
+	}
+
+	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
@@ -67,13 +75,10 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(fk_customer_id, fk_item_id) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO orders(customer_id, item_id) VALUES (?, ?)");) {
 			statement.setLong(1, t.getCustomer_id());
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
-			PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO order_items (unit_price, fk2_item_id, item_name, fk_order_id, fk2_customer_id) SELECT item_price, item_id, item_name, order_id, id FROM items i JOIN orders o ON i.item_id = o.fk_item_id JOIN customers c ON o.fk_customer_id = c.id;");
-			stmt.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -112,18 +117,10 @@ public class OrderDAO implements Dao<Order> {
 		return 0;
 	}
 
-	@Override
-	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long order_id = resultSet.getLong("order_id");
-		Long item_id = resultSet.getLong("item_id");
-		return new Order(order_id, item_id);
-
-	}
-
 	public Order viewOrder(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("Select * FROM order_items WHERE fk_order_id = ?");) {
+				ResultSet resultSet = statement.executeQuery("Select * FROM order_items WHERE order_id = ?");) {
 			((PreparedStatement) resultSet).setLong(1, id);
 			resultSet.next();
 			return modelFromResultSet(resultSet);

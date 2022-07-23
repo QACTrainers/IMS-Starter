@@ -46,8 +46,8 @@ public class ItemDAO implements Dao<Item> {
 	@Override
 	public Item read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE item_id = ?");) {
-			statement.setLong(1, id);
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM items WHERE item_id = " + id);) {
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
 				return modelFromResultSet(resultSet);
@@ -77,7 +77,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item create(Item t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO items(item_name, item_price) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO items(item_name, item_price) VALUES (? ,?)");) {
 			statement.setString(1, t.getItem_name());
 			statement.setDouble(2, t.getItem_price());
 			statement.executeUpdate();
@@ -94,7 +94,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item update(Item t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE items SET item_name = ?, item_price = ? WHERE item_id = ?");) {
+						.prepareStatement("UPDATE items SET item_name = ?, item_price = ? WHERE item_id = ?;");) {
 			statement.setString(1, t.getItem_name());
 			statement.setDouble(2, t.getItem_price());
 			statement.setLong(3, t.getItem_id());
@@ -110,20 +110,13 @@ public class ItemDAO implements Dao<Item> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE item_id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("DELETE * FROM items WHERE item_id = ?;");) {
 			statement.setLong(1, id);
-			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
-
-	}
-
-	// method purely here to test merging with git
-	public void testMerge() {
-		System.out.println("test");
 	}
 
 }

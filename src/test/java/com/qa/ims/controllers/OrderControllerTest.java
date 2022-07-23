@@ -62,7 +62,7 @@ public class OrderControllerTest {
 
 		Mockito.when(utils.getLong()).thenReturn(id, item_id);
 		Mockito.when(orderDAO.create(created)).thenReturn(created);
-		Mockito.when(orderDAO.readLatest()).thenReturn(created);
+		// Mockito.when(orderDAO.readLatest()).thenReturn(created);
 
 		assertEquals(created, OrderController.create());
 	}
@@ -72,11 +72,12 @@ public class OrderControllerTest {
 		final Long order_id = 1L;
 		final Long item_id = 1L;
 		final Long customer_id = 1L;
-		final Order order = new Order(order_id, item_id);
+		// final Order order = new Order(order_id, item_id);
 
 		Mockito.when(utils.getLong()).thenReturn(order_id, item_id, item_id, customer_id);
-		Mockito.when(orderDAO.read(order_id)).thenReturn(order);
-		Mockito.when(utils.getString()).thenReturn("ADD", "REMOVE", "CUSTOMER", "sdfg", "RETURN");
+		// Mockito.when(orderDAO.read(order_id)).thenReturn(order);
+		// Mockito.when(utils.getString()).thenReturn("ADD", "REMOVE", "CUSTOMER",
+		// "sdfg", "RETURN");
 
 		assertEquals(null, OrderController.update());
 	}
