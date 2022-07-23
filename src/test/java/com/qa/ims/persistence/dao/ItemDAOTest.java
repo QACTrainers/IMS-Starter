@@ -17,49 +17,38 @@ public class ItemDAOTest {
 	@BeforeClass
 	public static void init() {
 		DBUtils.connect();
-		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
+		DBUtils.getInstance().init("src/test/resources/sql-schema-items.sql", "src/test/resources/sql-data-items.sql");
 	}
 
 	@Test
 	public void testCreate() {
-		final Item created = new Item(3, "Mirror", 19.99);
+		final Item created = new Item(6L, "Mirror", 19.9D);
 		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
 	public void testreadItem() {
-		final Item read = new Item(1, "Wheel", 29.99);
-		assertEquals(read, DAO.read(1L));
+		final Item read = new Item("Wheel", 29.9D);
+		assertEquals(read, DAO.read(2L));
 	}
 
 	@Test
 	public void testreadAll() {
-		List<Item> readall = new ArrayList<Item>();
-		readall.add(new Item(1, "Wheel", 29.99));
-		readall.add(new Item(2, "Mirror", 19.99));
-		assertEquals(readall, DAO.readAll());
-	}
-
-	@Test
-	public void testCreateExcept() {
-		final Item exc = new Item(3, "Mirror", 10.99);
-		assertEquals(null, DAO.create(exc));
+		List<Item> expected = new ArrayList<>();
+		expected.add(new Item(3L, "Dodge", 12.5D));
+		expected.add(new Item(4L, "Duck", 4.4D));
+		expected.add(new Item(5L, "Dip", 30.9D));
+		assertEquals(expected, DAO.readAll());
 	}
 
 	@Test
 	public void testUpdate() {
-		final Item updated = new Item(1, "Wheel", 29.99);
-		assertEquals(updated, DAO.update(new Item(1, "Wheel", 29.99)));
-	}
-
-	@Test
-	public void testUpdateExc() {
-		final Item updated = new Item(1, "Wheel", 10.99);
-		assertEquals(null, DAO.update(updated));
+		final Item updated = new Item(2L, "Wheel", 29.9D);
+		assertEquals(updated, DAO.update(updated));
 	}
 
 	@Test
 	public void testDelete() {
-		assertEquals(0, DAO.delete(1));
+		assertEquals(1, DAO.delete(1));
 	}
 }

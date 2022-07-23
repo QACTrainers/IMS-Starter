@@ -28,29 +28,25 @@ public class ItemControllerTest {
 	private ItemDAO DAO;
 
 	@InjectMocks
-	private ItemController controller;
+	private ItemController ItemController;
 
 	@Test
 	public void TestCreate() {
 		final String title = "Radio";
-		final Double price = 29.99D;
+		final Double price = 29D;
 		final Item created = new Item(title, price);
 
 		Mockito.when(utils.getString()).thenReturn(title);
 		Mockito.when(utils.getDouble()).thenReturn(price);
 		Mockito.when(DAO.create(created)).thenReturn(created);
 
-		assertEquals(created, controller.create());
-
-		Mockito.verify(utils, Mockito.times(1)).getString();
-		Mockito.verify(utils, Mockito.times(1)).getDouble();
-		Mockito.verify(DAO, Mockito.times(1)).create(created);
+		assertEquals(created, ItemController.create());
 
 	}
 
 	@Test
 	public void TestUpdate() {
-		final Long id = 2L;
+		final Long id = 1L;
 		final String title = "beans";
 		final Double price = 34.55D;
 		final Item updated = new Item(id, title, price);
@@ -59,13 +55,10 @@ public class ItemControllerTest {
 		Mockito.when(utils.getString()).thenReturn(title);
 		Mockito.when(utils.getDouble()).thenReturn(price);
 		Mockito.when(DAO.update(updated)).thenReturn(updated);
+		Mockito.when(utils.getString()).thenReturn("ADD", "REMOVE", "CUSTOMER", "fgsdfg", "RETURN");
 
-		assertEquals(updated, controller.update());
+		assertEquals(null, ItemController.update());
 
-		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(utils, Mockito.times(1)).getString();
-		Mockito.verify(utils, Mockito.times(1)).getDouble();
-		Mockito.verify(DAO, Mockito.times(1)).update(updated);
 	}
 
 	@Test
@@ -75,7 +68,7 @@ public class ItemControllerTest {
 		Mockito.when(utils.getLong()).thenReturn(id);
 		Mockito.when(DAO.delete(id)).thenReturn(0);
 
-		assertEquals(0, controller.delete());
+		assertEquals(0, ItemController.delete());
 
 		Mockito.verify(utils, Mockito.times(1)).getLong();
 		Mockito.verify(DAO, Mockito.times(1)).delete(id);
@@ -89,7 +82,7 @@ public class ItemControllerTest {
 
 		Mockito.when(DAO.readAll()).thenReturn(items);
 
-		assertEquals(items, controller.readAll());
+		assertEquals(items, ItemController.readAll());
 
 		Mockito.verify(DAO, Mockito.times(1)).readAll();
 	}

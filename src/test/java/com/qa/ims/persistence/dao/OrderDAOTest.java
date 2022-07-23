@@ -23,7 +23,7 @@ public class OrderDAOTest {
 	@Test
 	public void TestCreate() {
 		final Order created = new Order(1L, 3L, 2L);
-		assertEquals(created, DAO.create(new Order(1L, 3L, 2L)));
+		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
@@ -33,20 +33,19 @@ public class OrderDAOTest {
 
 	@Test
 	public void TestDelete() {
-		assertEquals(1, DAO.delete(1l));
+		assertEquals(2, DAO.delete(2));
 	}
 
 	@Test
 	public void Testread() {
-		Order read = new Order(1L, 1L, 1L);
-		assertEquals(read, DAO.read(1L));
+		final long ID = 5L;
+		assertEquals(new Order(ID, 1L, 1L), DAO.read(ID));
 	}
 
 	@Test
 	public void TestReadAll() {
-		List<Order> expected = new ArrayList<Order>();
+		List<Order> expected = new ArrayList<>();
 		expected.add(new Order(1L, 1L));
-		expected.add(new Order(2L, 2L));
 		assertEquals(expected, DAO.readAll());
 	}
 }

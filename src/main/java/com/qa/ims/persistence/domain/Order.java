@@ -25,7 +25,7 @@ public class Order {
 	}
 
 	public Long getOrder_id() {
-		return order_id;
+		return this.order_id;
 	}
 
 	public void setOrder_id(long order_Id) {

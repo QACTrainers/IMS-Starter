@@ -75,7 +75,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customer_id, item_id) VALUES (?, ?)")) {
+						.prepareStatement("INSERT INTO orders(customer_id, item_id) VALUES (?, ?)");) {
 			statement.setLong(1, t.getCustomer_id());
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
@@ -120,7 +120,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order viewOrder(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("Select * FROM order_items WHERE fk_order_id = ?");) {
+				ResultSet resultSet = statement.executeQuery("Select * FROM order_items WHERE order_id = ?");) {
 			((PreparedStatement) resultSet).setLong(1, id);
 			resultSet.next();
 			return modelFromResultSet(resultSet);
