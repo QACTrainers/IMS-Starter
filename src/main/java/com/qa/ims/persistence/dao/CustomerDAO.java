@@ -130,13 +130,9 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate(
-					"DELETE FROM order_items JOIN orders on orders.order_id = order_item.order_id JOIN customers ON orders.customer_id = customers.id WHERE customers.id = "
-							+ id + ";");
-			((PreparedStatement) statement).setLong(1, id);
-			statement.executeUpdate("DELETE FROM orders WHERE customer_id =" + id + ";");
-			return statement.executeUpdate("DELETE FROM customers WHERE id = " + id + ";");
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?");) {
+			statement.setLong(1, id);
+			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

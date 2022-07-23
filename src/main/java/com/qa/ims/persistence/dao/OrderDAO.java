@@ -79,9 +79,6 @@ public class OrderDAO implements Dao<Order> {
 			statement.setLong(1, t.getCustomer_id());
 			statement.setLong(2, t.getItem_id());
 			statement.executeUpdate();
-			PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO order_items (unit_price, item_name, order_id, item_id, customer_id) SELECT i.item_price, i.item_id, i.item_name, o.order_id, c.id FROM items i JOIN orders o ON o.item_id = i.item_id JOIN customers c ON c.id = o.customer_id;");
-			stmt.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
