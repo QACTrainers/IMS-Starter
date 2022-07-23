@@ -1,0 +1,11 @@
+
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `items`;
+DROP TABLE IF EXISTS `orders`;
+
+CREATE TABLE IF NOT EXISTS `items` (
+	`item_id` INT NOT NULL AUTO_INCREMENT,
+	`item_name` VARCHAR(40) NULL DEFAULT NULL,
+	`item_price` DOUBLE NULL DEFAULT NULL,
+	PRIMARY KEY (`item_id`)
+	);
