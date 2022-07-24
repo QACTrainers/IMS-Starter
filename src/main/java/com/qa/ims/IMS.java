@@ -16,17 +16,25 @@ public class IMS {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private final CustomerController customers;
+	private final ItemController items;
+	private final OrderController orders;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
-		final CustomerDAO custDAO = new CustomerDAO();
+		final CustomerDAO customerDAO = new CustomerDAO();
+		final ItemDAO itemDAO = new ItemDAO();
+		final OrderDAO orderDAO = new OrderDAO();
+		final OrderItemsDAO orderitemsDAO = new OrderItemsDAO();
 		this.customers = new CustomerController(custDAO, utils);
+		this.items = new ItemController(itemDAO, utils);
+		this.orders = new OrderController(orderDAO, orderitemsDAO, customerDAO, utils);
 	}
 
 	public void imsSystem() {
-		LOGGER.info("Welcome to the Inventory Management System!");
+		LOGGER.info("Welcome to the IMS - Inventory Management System");
 		DBUtils.connect();
+
 
 		Domain domain = null;
 		do {
