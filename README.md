@@ -1,4 +1,4 @@
-Coverage: 34%
+Coverage: (tested for individual classes)
 # IMS
 
 an inventory management system tracking orders, items and customers
@@ -16,28 +16,10 @@ java
 mysql
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
-Testing for this program has been done using JUnit and Mockito, the DAO and Controller classes have been tested along with the Customer, Item, Object and ObjectItems classes
+Testing in this project is done using junit and mockito, it is automated to test mainly getters.
 
 ### Unit Tests 
 
@@ -48,23 +30,17 @@ Test to check getter methods return values
 ```
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
+integratio tests are to test the functionailty of the code to see different components work together 
 
 ```
-Give an example
+an exmaple in this project would be to check if the dao works with the controller and domain to create an item in the items table
 ```
 
 ### And coding style tests
 
-Explain what these tests test and why
+this type of testing is used to check if new code, added to existing code works and doesnt break the existing code
 
-```
-Give an example
-```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
