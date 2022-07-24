@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 	PRIMARY KEY (`order_id`),
 	CONSTRAINT `fk_id` FOREIGN KEY (`fk_id`) REFERENCES `customers` (`id`),
     CONSTRAINT `fk_item_id` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`)
+
 );
 
 CREATE TABLE IF NOT EXISTS `order_item` (
@@ -39,3 +40,4 @@ CREATE TABLE IF NOT EXISTS `order_item` (
 	CONSTRAINT `fk_item_id_1` FOREIGN KEY (`fk_item_id_1`) REFERENCES `item` (`item_id`)
     
 );
+
