@@ -34,10 +34,10 @@ public class ItemController implements CrudController<Item> {
 	@Override
 	public Item create() {
 		LOGGER.info("Please enter an Item name");
-		String item_name = utils.getString();
+		String itemName = utils.getString();
 		LOGGER.info("Please enter the price of the Item");
-		Double item_price = utils.getDouble();
-		Item item = itemDAO.create(new Item(item_name, item_price));
+		Double itemPrice = utils.getDouble();
+		Item item = itemDAO.create(new Item(itemName, itemPrice));
 		LOGGER.info("Item successfully created");
 		return item;
 	}
@@ -45,12 +45,12 @@ public class ItemController implements CrudController<Item> {
 	@Override
 	public Item update() {
 		LOGGER.info("Please enter the ID of the item you would like to update");
-		Long item_id = utils.getLong();
+		Long itemId = utils.getLong();
 		LOGGER.info("Please enter an Item name");
-		String item_name = utils.getString();
+		String itemName = utils.getString();
 		LOGGER.info("Please enter a price");
-		Double item_price = utils.getDouble();
-		Item item = itemDAO.update(new Item(item_id, item_name, item_price));
+		Double itemPrice = utils.getDouble();
+		Item item = itemDAO.update(new Item(itemId, itemName, itemPrice));
 		LOGGER.info("Item successfully updated");
 		return item;
 	}
@@ -58,8 +58,8 @@ public class ItemController implements CrudController<Item> {
 	@Override
 	public int delete() {
 		LOGGER.info("Please enter the ID of of the item you would like to delete");
-		Long item_id = utils.getLong();
-		return itemDAO.delete(item_id);
+		Long itemId = utils.getLong();
+		return itemDAO.delete(itemId);
 	}
 
 }

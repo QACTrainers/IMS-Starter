@@ -19,10 +19,20 @@ public class OrderDAO implements Dao<Order> {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
+	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
+		Long orderId = resultSet.getLong("order_id");
+		Long id = resultSet.getLong("fk_id");
+		Long itemId = resultSet.getLong("fk_item_id");
+		Double quantity = resultSet.getDouble(1);
+		Double totalPrice = resultSet.getDouble(1);
+		return new Order(orderId, id, itemId, quantity, totalPrice);
+	}
+
+	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM `order`");) {
 			List<Order> order = new ArrayList<>();
 			while (resultSet.next()) {
 				order.add(modelFromResultSet(resultSet));
@@ -35,23 +45,11 @@ public class OrderDAO implements Dao<Order> {
 		return new ArrayList<>();
 	}
 
-	public Order readLatest() {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
-			resultSet.next();
-			return modelFromResultSet(resultSet);
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
-
 	@Override
 	public Order read(Long orderId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE order_id = ?");) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM `order` WHERE `order_id` = ?");) {
 			statement.setLong(1, orderId);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
@@ -62,14 +60,27 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+	}
 
+	public Order readLatest() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM `order` ORDER BY `order_id` DESC LIMIT 1");) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
 	}
 
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customer_id, item_id) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO `order`(`fk_id`, `fk_item_id`) VALUES (?, ?)");) {
 			statement.setLong(1, order.getId());
 			statement.setLong(2, order.getItemId());
 			statement.executeUpdate();
@@ -84,14 +95,13 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE orders SET customer_id = ?, item_id = ?. total_price = ?, WHERE order_id = ?");) {
-			statement.setLong(1, order.getId());
-			statement.setLong(2, order.getItemId());
-			statement.setDouble(3, order.getTotalPrice());
-			statement.setLong(4, order.getOrderId());
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE `order` SET `fk_id` = ?, `fk_item_id` = ?, WHERE `order_id` = ?");) {
+			statement.setLong(1, order.getOrderId());
+			statement.setLong(2, order.getId());
+			statement.setLong(3, order.getItemId());
 			statement.executeUpdate();
-			return read(order.getOrderId());
+			return read(order.getItemId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -102,7 +112,8 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public int delete(long orderId) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE order_id = ?");) {
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM `order` WHERE `order_id` = ?");) {
 			statement.setLong(1, orderId);
 			return statement.executeUpdate();
 		} catch (Exception e) {
@@ -112,13 +123,22 @@ public class OrderDAO implements Dao<Order> {
 		return 0;
 	}
 
-	@Override
-	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long orderId = resultSet.getLong("order_id");
-		Long id = resultSet.getLong("customer_id");
-		Long itemId = resultSet.getLong("item_id");
-		Double totalPrice = resultSet.getDouble(0);
+	// Total price auto increments in console, try to fix.
+	// potential code to calculate total price from quantity * item price in
+	// order_item table
 
-		return new Order(orderId, id, itemId, totalPrice);
+//	public double totalPrice(long orderId) throws SQLException {
+//		double total = 0;
+//		try (Connection connection = DBUtils.getInstance().getConnection();
+//				Statement statement = connection.createStatement();
+//				ResultSet resultSet = statement
+//						.executeQuery("SELECT `item_price` FROM `items` WHERE `customer_id` = " + "`id`");) {
+//			List<Order> price = new ArrayList<>();
+//			for (double i = 0; i < price.size(); i++) {
+//				total += i;
+//			}
+//			return total;
+//		}
 	}
-}
+
+

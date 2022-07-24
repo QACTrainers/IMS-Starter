@@ -49,10 +49,12 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the Customer ID");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter the Item ID");
+		Double quantity = utils.getDouble();
+		LOGGER.info("Please enter the Item quantity");
 		Long itemId = utils.getLong();
 		LOGGER.info("Please enter the new Total Price of the order");
 		Double totalPrice = utils.getDouble();
-		Order order = orderDAO.update(new Order(orderId, id, itemId, totalPrice));
+		Order order = orderDAO.update(new Order(orderId, id, itemId, quantity, totalPrice));
 		LOGGER.info("Order Updated");
 		return order;
 	}

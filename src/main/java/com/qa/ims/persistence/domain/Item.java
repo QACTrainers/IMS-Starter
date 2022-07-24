@@ -1,5 +1,7 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class Item {
 
 	private Long itemId;
@@ -7,14 +9,14 @@ public class Item {
 	private Double itemPrice;
 
 	public Item(String itemName, Double itemPrice) {
-		this.itemName = itemName;
-		this.itemPrice = itemPrice;
+		this.setItemName(itemName);
+		this.setItemPrice(itemPrice);
 	}
 
 	public Item(Long itemId, String itemName, Double itemPrice) {
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.itemPrice = itemPrice;
+		this.setItemId(itemId);
+		this.setItemName(itemName);
+		this.setItemPrice(itemPrice);
 	}
 
 	public Long getItemId() {
@@ -34,7 +36,7 @@ public class Item {
 	}
 
 	public Double getItemPrice() {
-		return this.itemPrice;
+		return itemPrice;
 	}
 
 	public void setItemPrice(Double itemPrice) {
@@ -43,7 +45,12 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item ID: " + itemId + "Item Name: " + itemName + "Item Price: " + itemPrice;
+		return "Item ID: " + itemId + " Item Name: " + itemName + " Item Price: " + itemPrice;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(itemId, itemName, itemPrice);
 	}
 
 	@Override
@@ -55,21 +62,7 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (getItemName() == null) {
-			if (other.getItemName() != null)
-				return false;
-		} else if (!getItemName().equals(other.getItemName()))
-			return false;
-		if (itemId == null) {
-			if (other.itemId != null)
-				return false;
-		} else if (!itemId.equals(other.itemId))
-			return false;
-		if (itemPrice == null) {
-			if (other.itemPrice != null)
-				return false;
-		} else if (!itemPrice.equals(other.itemPrice))
-			return false;
-		return true;
+		return Objects.equals(itemId, other.itemId) && Objects.equals(itemName, other.itemName)
+				&& Objects.equals(itemPrice, other.itemPrice);
 	}
 }

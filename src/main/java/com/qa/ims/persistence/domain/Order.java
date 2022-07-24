@@ -1,23 +1,28 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class Order {
 
 	private Long orderId;
 	// private Long orderItemId; ??
 	private Long id; // ( = customerId)
 	private Long itemId;
+	private Double quantity;
 	private Double totalPrice;
 
 	public Order(Long id, Long itemId) {
+		super();
 		this.id = id;
 		this.itemId = itemId;
 	}
 
-	public Order(Long orderId, Long id, Long itemId, Double totalPrice) {
+	public Order(Long orderId, Long id, Long itemId, Double quantity, Double totalPrice) {
 		super();
 		this.orderId = orderId;
 		this.id = id;
 		this.itemId = itemId;
+		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 	}
 
@@ -45,6 +50,14 @@ public class Order {
 		this.itemId = itemId;
 	}
 
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
 	public Double getTotalPrice() {
 		return totalPrice;
 	}
@@ -55,7 +68,12 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order ID: " + orderId + "Customer ID: " + id + "Item ID: " + itemId + "Total Price: " + totalPrice;
+		return "Order ID: " + orderId + " Customer ID: " + id + " Item ID: " + itemId + " Total Price: " + totalPrice;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, itemId, orderId, quantity, totalPrice);
 	}
 
 	@Override
@@ -67,27 +85,9 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (getOrderId() == null) {
-			if (other.getOrderId() != null)
-				return false;
-		} else if (!getOrderId().equals(other.getOrderId()))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (itemId == null) {
-			if (other.itemId != null)
-				return false;
-		} else if (!itemId.equals(other.itemId))
-			return false;
-		if (totalPrice == null) {
-			if (other.totalPrice != null)
-				return false;
-		} else if (!totalPrice.equals(other.totalPrice))
-			return false;
-		return true;
-	}
+		return Objects.equals(id, other.id) && Objects.equals(itemId, other.itemId)
+				&& Objects.equals(orderId, other.orderId) && quantity == other.quantity
+				&& Objects.equals(totalPrice, other.totalPrice);
 
+	}
 }
