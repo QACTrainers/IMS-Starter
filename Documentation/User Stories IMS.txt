@@ -1,0 +1,18 @@
+User stories:
+
+As a manager I want to be able to add an item to the item database when we receive new product lines.
+As a manager I want to be able to delete items from the item database when an item is discontinued.
+As a manager I want to be able to update an item in the item database when they go out of stock.
+As a manager I want to be able to create a new order so that we can fulfil a customers' demand.
+As a manager I want to be able to view all orders so I can determine quotas for restocking.
+As a manager I want to be able to delete an order so I can clean up the IMS by removing fulfilled orders.
+
+As a marketer I want to be able to view all customers in the customer database so that I can prioritise marketing offers to customers.
+As a marketer I want to be able to update the price of items in the item database according to ongoing promotions.
+
+As a customer I want to be able to update my details so I can be properly addressed when/if I change my name.
+As a customer I want to be able to delete my details from the system when I no longer wish to make orders.
+As a customer I want to be able to add my details to the customer table so I can create an order.
+As a customer I want to be able to add items to my order so I can buy multiple items at the same time.
+As a customer I want to be able to view all items in the items database so I can determine what products to purchase.
+As a customer I want to be able to view the total cost of my order(s) so I can budget accordingly.
