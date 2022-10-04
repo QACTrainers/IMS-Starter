@@ -1,7 +1,7 @@
-Coverage: 34%
-# Project Title
+Coverage: (tested for individual classes)
+# IMS
 
-One Paragraph of project description goes here
+an inventory management system tracking orders, items and customers
 
 ## Getting Started
 
@@ -9,60 +9,38 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+in order to use this software you will need to have the following installed
 
 ```
-Give examples
+java
+mysql
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+Testing in this project is done using junit and mockito, it is automated to test mainly getters.
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+unit testing is used to test small portions of the code needed to be tested, Such tests have taken place in this project
 
 ```
-Give an example
+Test to check getter methods return values 
 ```
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
+integratio tests are to test the functionailty of the code to see different components work together 
 
 ```
-Give an example
+an exmaple in this project would be to check if the dao works with the controller and domain to create an item in the items table
 ```
 
 ### And coding style tests
 
-Explain what these tests test and why
+this type of testing is used to check if new code, added to existing code works and doesnt break the existing code
 
-```
-Give an example
-```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -84,6 +62,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Ed Reynolds for teaching us how to use Git, SQL and basic java; being present when unwell to teach us and help resolve testing errors in my project
+* Jordan Harrison for teaching us OOP principles, helping me with my testing errors and access unreachable git files
+* The Whole cohort for advising and morally supporting each other through this project. 

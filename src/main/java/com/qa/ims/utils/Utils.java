@@ -1,5 +1,8 @@
 package com.qa.ims.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -34,6 +37,22 @@ public class Utils {
 		return longInput;
 	}
 
+	public java.sql.Date getDate() {
+		String input = null;
+		Date dateInput = null;
+		do {
+			input = getString();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				dateInput = dateFormat.parse(input);
+			}catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} while(dateInput == null);
+		return new java.sql.Date(dateInput.getTime());
+		//return dateInput;
+	}
+
 	public String getString() {
 		return scanner.nextLine();
 	}
@@ -50,6 +69,20 @@ public class Utils {
 			}
 		} while (doubleInput == null);
 		return doubleInput;
+	}
+
+	public Integer getInteger() {
+		String input = null;
+		Integer integerInput = null;
+		do{
+			try {
+				input = getString();
+				integerInput = Integer.parseInt(input);
+			} catch (NumberFormatException nfe) {
+				LOGGER.info("error - Please enter a number");
+			}
+		} while (integerInput == null);
+		return integerInput;
 	}
 
 }
