@@ -43,9 +43,9 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer create() {
-		LOGGER.info("Please enter a first name");
+		LOGGER.info("Please enter customer first name");
 		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter customer surname");
 		String surname = utils.getString();
 		Customer customer = customerDAO.create(new Customer(firstName, surname));
 		LOGGER.info("Customer created");

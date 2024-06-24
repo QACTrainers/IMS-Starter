@@ -33,6 +33,20 @@ public class Utils {
 		} while (longInput == null);
 		return longInput;
 	}
+	
+	public Integer getInteger() {
+		String input = null;
+		int IntegerInput = 0;
+		do {
+			try {
+				input = getString();
+				IntegerInput = Integer.parseInt(input);
+			} catch (NumberFormatException nfe) {
+				LOGGER.info("Error - Please enter a number");
+			}
+		} while (IntegerInput == 0);
+		return IntegerInput;
+	}
 
 	public String getString() {
 		return scanner.nextLine();
@@ -51,5 +65,7 @@ public class Utils {
 		} while (doubleInput == null);
 		return doubleInput;
 	}
+
+	
 
 }
